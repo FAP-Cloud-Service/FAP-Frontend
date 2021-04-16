@@ -9,6 +9,9 @@ import {FormControl, Validators} from '@angular/forms';
 export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
+
+  constructor() { }
+
   getEmailErrorMessage(): string {
     if (this.email.hasError('required')) {
       return 'Pflichtfeld';
@@ -21,7 +24,6 @@ export class LoginComponent implements OnInit {
     }
     return this.password.hasError('minlength') ? 'Passwort zu kurz!' : '';
   }
-  constructor() { }
   ngOnInit(): void {
   }
 
