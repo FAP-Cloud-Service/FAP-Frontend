@@ -14,7 +14,8 @@
 
       <!-- Add main content components with logic for display here -->
 
-      <app-start-page></app-start-page>
+      <app-login *ngIf="!loggedIn"></app-login>
+      <app-start-page *ngIf="loggedIn"></app-start-page>
 
     </mat-sidenav-content>
   </mat-sidenav-container>

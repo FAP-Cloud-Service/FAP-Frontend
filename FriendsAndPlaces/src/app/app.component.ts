@@ -9,4 +9,6 @@ export class AppComponent {
   title = 'FriendsAndPlaces';
 
   sidenavOpen = false;
+
+  loggedIn = false;
 }
