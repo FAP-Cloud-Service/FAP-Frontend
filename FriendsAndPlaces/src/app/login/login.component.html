@@ -14,8 +14,8 @@
       <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
     </mat-form-field>
   </p>
-  <p>
+  <div class="button-row">
     <button mat-raised-button color="accent" type="submit">Anmelden</button>
-    <button mat-raised-button color="stroked">Registrieren</button>
-  </p>
+    <button mat-stroked-button color="accent" (click)="openRegisterDialog()">Registrieren</button>
+  </div>
 </div>

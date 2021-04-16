@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {RegisterComponent} from "../register/register.component";
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   getEmailErrorMessage(): string {
     if (this.email.hasError('required')) {
@@ -23,6 +25,14 @@ export class LoginComponent implements OnInit {
       return 'Pflichtfeld';
     }
     return this.password.hasError('minlength') ? 'Passwort zu kurz!' : '';
+  }
+  openRegisterDialog(): void {
+    this.dialog.open(RegisterComponent, {
+      data: {
+        email: this.email
+      },
+      disableClose: true
+    });
   }
   ngOnInit(): void {
   }
