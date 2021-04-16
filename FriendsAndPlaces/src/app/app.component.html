@@ -1,8 +1,22 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button class="menu-button">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Friends and Places</span>
-</mat-toolbar>
+<div class="sidenav-format-container">
+  <mat-toolbar color="accent">
+    <button mat-icon-button class="menu-button" (click)="sidenavOpen = !sidenavOpen">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Friends and Places</span>
+  </mat-toolbar>
 
-<app-start-page></app-start-page>
+  <mat-sidenav-container class="sidenav">
+    <mat-sidenav mode="over" [(opened)]="sidenavOpen">
+      <app-sidenav-content></app-sidenav-content>
+    </mat-sidenav>
+    <mat-sidenav-content class="content-margin">
+
+      <!-- Add main content components with logic for display here -->
+
+      <app-start-page></app-start-page>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>
