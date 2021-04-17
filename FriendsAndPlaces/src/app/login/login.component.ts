@@ -11,7 +11,6 @@ import {RegisterComponent} from "../register/register.component";
 export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
-
   constructor(public dialog: MatDialog) { }
 
   getEmailErrorMessage(): string {
@@ -28,10 +27,10 @@ export class LoginComponent implements OnInit {
   }
   openRegisterDialog(): void {
     this.dialog.open(RegisterComponent, {
-      data: {
-        email: this.email
-      },
-      disableClose: true
+      disableClose: true,
+      hasBackdrop: true,
+      minWidth: '80%',
+      restoreFocus: true
     });
   }
   ngOnInit(): void {

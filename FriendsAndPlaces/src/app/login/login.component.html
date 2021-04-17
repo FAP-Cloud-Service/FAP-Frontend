@@ -10,12 +10,12 @@
   <p>
     <mat-form-field appearance="fill" class="wide-center">
       <mat-label>Gib deine Passwort ein</mat-label>
-      <input matInput placeholder="Passwort" [formControl]="password" required>
+      <input matInput placeholder="Passwort" [formControl]="password" required type="password">
       <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
     </mat-form-field>
   </p>
   <div class="button-row">
-    <button mat-raised-button color="accent" type="submit">Anmelden</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="email.invalid || password.invalid">Anmelden</button>
     <button mat-stroked-button color="accent" (click)="openRegisterDialog()">Registrieren</button>
   </div>
 </div>

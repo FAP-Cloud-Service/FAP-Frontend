@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
-import {MatDialogRef} from "@angular/material/dialog";
+import {FormControl, Validators} from '@angular/forms';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-register',
@@ -8,7 +8,7 @@ import {MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  @Input() email?: FormControl;
+  email = new FormControl();
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
   constructor(public dialogRef: MatDialogRef<RegisterComponent>) { }
