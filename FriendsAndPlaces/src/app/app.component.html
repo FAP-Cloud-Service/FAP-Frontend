@@ -8,14 +8,14 @@
 
   <mat-sidenav-container class="sidenav">
     <mat-sidenav mode="over" [(opened)]="sidenavOpen">
-      <app-sidenav-content></app-sidenav-content>
+      <app-sidenav-content [loggedIn]="loggedIn" (selectedPage)="selectPage($event)"></app-sidenav-content>
     </mat-sidenav>
-    <mat-sidenav-content class="content-margin">
+    <mat-sidenav-content>
 
       <!-- Add main content components with logic for display here -->
 
-      <app-login *ngIf="!loggedIn"></app-login>
-      <app-start-page *ngIf="loggedIn"></app-start-page>
+      <app-login *ngIf="selectedPage == 'login'"></app-login>
+      <app-start-page *ngIf="selectedPage == 'start'"></app-start-page>
 
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sidenav-content',
   templateUrl: './sidenav-content.component.html',
   styleUrls: ['./sidenav-content.component.scss']
 })
-export class SidenavContentComponent implements OnInit {
+export class SidenavContentComponent {
 
-  constructor() { }
+  @Output() selectedPage = new EventEmitter<string>();
 
-  ngOnInit(): void {
+  @Input() loggedIn: boolean;
+
+  constructor() {  }
+
+  selectedPageChanged(value: string) {
+    this.selectedPage.emit(value);
   }
 
 }

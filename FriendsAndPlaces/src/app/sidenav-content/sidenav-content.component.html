@@ -1,8 +1,11 @@
 <div class="content-margin">
 
-  <mat-selection-list>
-    <mat-list-option> Log-In </mat-list-option>
-    <mat-list-option> Freundschaftskarte </mat-list-option>
+  <mat-selection-list #siteList class="site-list" [multiple]="false" (selectionChange)="selectedPageChanged(siteList.selectedOptions.selected[0]?.value)">
+    <mat-list-option [value]="'start'"> Startseite </mat-list-option>
+    <mat-list-option *ngIf="!loggedIn" [value]="'login'"> Log-In </mat-list-option>
+    <mat-list-option *ngIf="loggedIn" [value]="'friendsmap'"> Freundschaftskarte </mat-list-option>
   </mat-selection-list>
+
+  <div>Selected: {{siteList.selectedOptions.selected[0]?.value}}</div>
 
 </div>
