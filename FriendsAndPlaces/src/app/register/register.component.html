@@ -1,26 +1,28 @@
-<h1 mat-dialog-title>Registrieren</h1>
-<div mat-dialog-content>
-  Gib hier deine Daten ein:
-  <p>
-    <mat-form-field appearance="fill" class="wide-center">
-      <mat-label>Gib deine E-Mail ein</mat-label>
-      <input matInput placeholder="nutzer@beispiel.de" [formControl]="email" required>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill" class="wide-center">
-      <mat-label>Gib deine Passwort ein</mat-label>
-      <input matInput placeholder="Passwort" required type="password">
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill" class="wide-center">
-      <mat-label>Passwort wiederholen</mat-label>
-      <input matInput placeholder="Passwort" required type="password">
-    </mat-form-field>
-  </p>
-  <div class="button-row">
-    <button mat-raised-button color="accent" type="submit" [disabled]="email.invalid || password.invalid">Registrieren</button>
-    <button mat-stroked-button color="warn" (click)="closeDialog()">Abbrechen</button>
+<form>
+  <h1 mat-dialog-title>Registrieren</h1>
+  <div mat-dialog-content>
+    Gib hier deine Daten ein:
+    <p>
+      <mat-form-field appearance="fill" class="wide-center">
+        <mat-label>Gib deine E-Mail ein</mat-label>
+        <input matInput placeholder="nutzer@beispiel.de" formControlName="email" required>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill" class="wide-center">
+        <mat-label>Gib deine Passwort ein</mat-label>
+        <input matInput type="password" placeholder="Passwort" formControlName="password" required>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill" class="wide-center">
+        <mat-label>Passwort wiederholen</mat-label>
+        <input matInput type="password" placeholder="Passwort" formControlName="passwordRepeat" required>
+      </mat-form-field>
+    </p>
+    <div class="button-row">
+      <button mat-raised-button color="accent" type="submit" [disabled]="registerForm.invalid">Registrieren</button>
+      <button mat-stroked-button color="warn" (click)="closeDialog()">Abbrechen</button>
+    </div>
   </div>
-</div>
+</form>
