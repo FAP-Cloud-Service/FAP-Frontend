@@ -1,21 +1,21 @@
-<div class="example-container">
+<form [formGroup]="loginForm">
   <h1>Login</h1>
   <p>
-    <mat-form-field appearance="fill" class="wide-center">
+    <mat-form-field appearance="fill" class="wide-input">
       <mat-label>Gib deine E-Mail ein</mat-label>
-      <input matInput placeholder="nutzer@beispiel.de" [formControl]="email" required>
-      <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+      <input matInput placeholder="nutzer@beispiel.de" formControlName="email" required>
+      <mat-error *ngIf="loginForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
     </mat-form-field>
   </p>
   <p>
-    <mat-form-field appearance="fill" class="wide-center">
+    <mat-form-field appearance="fill" class="wide-input">
       <mat-label>Gib deine Passwort ein</mat-label>
-      <input matInput placeholder="Passwort" [formControl]="password" required type="password">
-      <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      <input matInput type="password" placeholder="Passwort" formControlName="password" required>
+      <mat-error *ngIf="loginForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
     </mat-form-field>
   </p>
   <div class="button-row">
-    <button mat-raised-button color="accent" type="submit" [disabled]="email.invalid || password.invalid">Anmelden</button>
-    <button mat-stroked-button color="accent" (click)="openRegisterDialog()">Registrieren</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid">Anmelden</button>
+    <button mat-stroked-button color="accent" type="button" (click)="openRegisterDialog()">Registrieren</button>
   </div>
-</div>
+</form>

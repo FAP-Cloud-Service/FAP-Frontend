@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {RegisterComponent} from "../register/register.component";
 
@@ -9,21 +9,23 @@ import {RegisterComponent} from "../register/register.component";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
+  });
   constructor(public dialog: MatDialog) { }
 
   getEmailErrorMessage(): string {
-    if (this.email.hasError('required')) {
+    if (this.loginForm.hasError('required')) {
       return 'Pflichtfeld';
     }
-    return this.email.hasError('email') ? 'E-Mail ungeültig' : '';
+    return this.loginForm.controls.email.hasError('email') ? 'E-Mail ungeültig' : '';
   }
   getPasswordErrorMessage(): string {
-    if (this.password.hasError('required')) {
+    if (this.loginForm.controls.password.hasError('required')) {
       return 'Pflichtfeld';
     }
-    return this.password.hasError('minlength') ? 'Passwort zu kurz!' : '';
+    return this.loginForm.controls.password.hasError('minlength') ? 'Passwort zu kurz!' : '';
   }
   openRegisterDialog(): void {
     this.dialog.open(RegisterComponent, {
