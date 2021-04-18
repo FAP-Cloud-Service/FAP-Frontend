@@ -1,1 +1,23 @@
-<app-login></app-login>
+<div class="sidenav-format-container">
+  <mat-toolbar color="accent">
+    <button mat-icon-button class="menu-button" (click)="sidenavOpen = !sidenavOpen">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Friends and Places</span>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav">
+    <mat-sidenav mode="over" [(opened)]="sidenavOpen">
+      <app-sidenav-content [loggedIn]="loggedIn" (selectedPage)="selectPage($event)"></app-sidenav-content>
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+      <!-- Add main content components with logic for display here -->
+
+      <app-login *ngIf="selectedPage == 'login'"></app-login>
+      <app-start-page (selectedPage)="selectPage($event)" *ngIf="selectedPage == 'start'"></app-start-page>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>

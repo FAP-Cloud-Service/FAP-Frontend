@@ -5,16 +5,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './modules/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StartPageComponent } from './start-page/start-page.component';
+import { SidenavContentComponent } from './sidenav-content/sidenav-content.component';
 import { LoginComponent } from './login/login.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent
+    StartPageComponent,
+    SidenavContentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

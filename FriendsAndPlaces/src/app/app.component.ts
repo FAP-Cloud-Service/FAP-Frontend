@@ -7,4 +7,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FriendsAndPlaces';
+
+  sidenavOpen = false;
+  selectedPage = 'start';
+  loggedIn = false;
+
+  constructor() {
+    if (!this.loggedIn) {
+      this.selectedPage = 'login';
+    }
+  }
+
+  selectPage(value: string) {
+    this.selectedPage = value;
+    this.sidenavOpen = false;
+  }
+
 }
