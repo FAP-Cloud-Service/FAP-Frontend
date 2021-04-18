@@ -10,13 +10,15 @@ import { SidenavContentComponent } from './sidenav-content/sidenav-content.compo
 import { LoginComponent } from './login/login.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import {RegisterComponent} from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StartPageComponent,
     SidenavContentComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
