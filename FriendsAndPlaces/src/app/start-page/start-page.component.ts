@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-start-page',
@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class StartPageComponent {
 
+  @Output() selectedPage = new EventEmitter<string>();
+
   constructor() { }
+
+  goToLoginPage() {
+    this.selectedPage.emit('login');
+  }
 
 }
