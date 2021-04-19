@@ -8,10 +8,11 @@ import {MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  loading = false;
   registerForm = new FormGroup({
-    email: new FormControl(),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    passwordRepeat: new FormControl()
+    passwordRepeat: new FormControl('', Validators.required)
   });
   constructor(public dialogRef: MatDialogRef<RegisterComponent>) { }
   closeDialog(): void {
@@ -19,5 +20,16 @@ export class RegisterComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-
+  getEmailErrorMessage(): string {
+    if (this.registerForm.controls.email.hasError('required')) {
+      console.log('Pflichtfeld');
+      return 'Pflichtfeld';
+    }
+    console.log('Mail ungeülgitg');
+    return this.registerForm.controls.email.hasError('email') ? 'E-Mail ungeültig' : '';
+  }
+  onSubmit(): void {
+    this.loading = true;
+    this.registerForm.disable();
+  }
 }

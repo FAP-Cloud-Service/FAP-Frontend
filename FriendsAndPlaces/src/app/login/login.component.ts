@@ -9,6 +9,7 @@ import {RegisterComponent} from "../register/register.component";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  loading = false;
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   getEmailErrorMessage(): string {
-    if (this.loginForm.hasError('required')) {
+    if (this.loginForm.controls.email.hasError('required')) {
       return 'Pflichtfeld';
     }
     return this.loginForm.controls.email.hasError('email') ? 'E-Mail ungeültig' : '';
@@ -34,6 +35,10 @@ export class LoginComponent implements OnInit {
       minWidth: '80%',
       restoreFocus: true
     });
+  }
+  performLogin(): void {
+    this.loading = true;
+    this.loginForm.disable();
   }
   ngOnInit(): void {
   }

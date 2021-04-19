@@ -4,6 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
-
-  constructor() { }
+  performLogin(username: string, password: string): void {
+    const payload = {
+      username,
+      password
+    };
+    console.log('Performing Login with: ' + JSON.stringify(payload, null, 2));
+  }
 }
