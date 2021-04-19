@@ -1,11 +1,25 @@
-.wide-center {
+.mat-form-field {
   width: 100%;
 }
 
-button {
-  width: 50%;
+form {
+  margin-bottom: 20px;
 }
 
-.invisible {
-  display: none;
+.mat-radio-button {
+  margin: 0 12px;
+}
+
+.center {
+  margin: auto;
+  text-align: center;
+  padding: 10px
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }

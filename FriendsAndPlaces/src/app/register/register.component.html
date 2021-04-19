@@ -1,34 +1,96 @@
-<form [formGroup]="registerForm">
-  <h1 mat-dialog-title>Registrieren</h1>
-  <div mat-dialog-content>
-    Gib hier deine Daten ein:
-    <p>
-      <mat-form-field appearance="fill" class="wide-center" disabled="loading">
-        <mat-label>Gib deine E-Mail ein</mat-label>
-        <input matInput placeholder="nutzer@beispiel.de" formControlName="email" required>
-        <mat-error *ngIf="registerForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="fill" class="wide-center" disabled="loading">
-        <mat-label>Gib deine Passwort ein</mat-label>
-        <input matInput type="password" placeholder="Passwort" formControlName="password" required>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="fill" class="wide-center">
-        <mat-label>Passwort wiederholen</mat-label>
-        <input matInput type="password" placeholder="Passwort" formControlName="passwordRepeat" required>
-      </mat-form-field>
-    </p>
-    <div class="button-row">
-      <mat-progress-bar mode="query" style="width: 50%" color="accent" [class.invisible]="! loading"></mat-progress-bar>
-      <button mat-raised-button color="accent" (click)="onSubmit()" type="submit" [disabled]="registerForm.invalid || loading">
-        Registrieren
-      </button>
-      <button mat-stroked-button color="warn" type="button" (click)="closeDialog()" [disabled]="loading">Abbrechen</button>
+<mat-card><h1>Neuen Account Erstellen...</h1></mat-card>
+<mat-horizontal-stepper #stepper id="stepper">
+  <mat-step [stepControl]="personalForm">
+    <form [formGroup]="personalForm">
+      <ng-template matStepLabel>Persönliche Daten</ng-template>
+      <div class="center">
+        <h1>Dein Name</h1>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Gibt deinen Vornamen ein</mat-label>
+          <input matInput type="text" placeholder="Vorname" formControlName="firstName" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Gibt deinen Nachnamen ein</mat-label>
+          <input matInput type="text" placeholder="Nachname" formControlName="lastName" required>
+        </mat-form-field>
+      </div>
+    </form>
+    <div>
+      <button mat-stroked-button color="accent" matStepperNext class="right">Nächste Seite</button>
     </div>
-  </div>
-</form>
-
-<h1>Loading: {{ loading }}</h1>
+  </mat-step>
+  <mat-step [stepControl]="addressForm">
+    <form [formGroup]="addressForm">
+      <ng-template matStepLabel>Anschrift</ng-template>
+      <div class="center">
+        <h1>Deine Anschrift</h1>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Straße</mat-label>
+          <input matInput type="text" placeholder="Musterstraße" formControlName="street" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Postleitzahl</mat-label>
+          <input matInput type="text" placeholder="PLZ" formControlName="zip" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Stadt</mat-label>
+          <input matInput type="text" placeholder="Musterstadt" formControlName="city" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Land</mat-label>
+          <input matInput type="text" placeholder="Deutschland" formControlName="country" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
+        <button mat-stroked-button color="accent" matStepperNext class="right">Nächste Seite
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="contactForm">
+    <form [formGroup]="contactForm">
+      <ng-template matStepLabel>Kontaktinformationen</ng-template>
+      <div class="center">
+        <h1>Deine Kontaktdaten</h1>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Telefonnummer</mat-label>
+          <input matInput type="text" placeholder="+45 123 456 78" formControlName="mobile" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Deine E-Mail Addresse</mat-label>
+          <input matInput type="text" placeholder="PLZ" formControlName="email" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
+        <button mat-stroked-button color="accent" matStepperNext class="right">Nächste Seite
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="accountForm">
+    <form [formGroup]="accountForm">
+      <ng-template matStepLabel>Account Informationen</ng-template>
+      <div class="center">
+        <h1>Deine Zugangsdaten</h1>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Benutzername</mat-label>
+          <input matInput type="text" placeholder="UserName" formControlName="username" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Dein Passwort</mat-label>
+          <input matInput type="text" placeholder="Passwort" formControlName="password" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Passwort Wiederholen</mat-label>
+          <input matInput type="text" placeholder="Passwort wiederholen" formControlName="passwordRepeat" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
+        <button mat-stroked-button color="accent" matStepperNext class="right">Account erstellen</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

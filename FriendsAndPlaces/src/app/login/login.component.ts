@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {RegisterComponent} from "../register/register.component";
+import {RegisterComponent} from '../register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     this.dialog.open(RegisterComponent, {
       disableClose: true,
       hasBackdrop: true,
-      minWidth: '80%',
+      minWidth: '40%',
       restoreFocus: true
     });
   }
