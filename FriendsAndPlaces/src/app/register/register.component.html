@@ -1,4 +1,8 @@
-<mat-card><h1>Neuen Account Erstellen...</h1></mat-card>
+<button mat-stroked-button color="warn" aria-label="Example icon button with a plus one icon" type="button" [mat-dialog-close]="dialogRef" class="right" [disabled]="loading">
+  Schließen
+</button>
+<h1>{{heading}}</h1>
+<mat-progress-bar mode="indeterminate" [class.invisible]="! loading"></mat-progress-bar>
 <mat-horizontal-stepper #stepper id="stepper">
   <mat-step [stepControl]="personalForm">
     <form [formGroup]="personalForm">
@@ -16,7 +20,7 @@
       </div>
     </form>
     <div>
-      <button mat-stroked-button color="accent" matStepperNext class="right">Nächste Seite</button>
+      <button mat-stroked-button color="accent" matStepperNext class="right" [disabled]="personalForm.invalid">Nächste Seite</button>
     </div>
   </mat-step>
   <mat-step [stepControl]="addressForm">
@@ -43,7 +47,7 @@
       </div>
       <div>
         <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
-        <button mat-stroked-button color="accent" matStepperNext class="right">Nächste Seite
+        <button mat-stroked-button color="accent" matStepperNext class="right" [disabled]="addressForm.invalid">Nächste Seite
         </button>
       </div>
     </form>
@@ -59,13 +63,12 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Deine E-Mail Addresse</mat-label>
-          <input matInput type="text" placeholder="PLZ" formControlName="email" required>
+          <input matInput type="text" placeholder="user@example.com" formControlName="email" required>
         </mat-form-field>
       </div>
       <div>
         <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
-        <button mat-stroked-button color="accent" matStepperNext class="right">Nächste Seite
-        </button>
+        <button mat-stroked-button color="accent" matStepperNext class="right" [disabled]="contactForm.invalid">Nächste Seite</button>
       </div>
     </form>
   </mat-step>
@@ -80,16 +83,19 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Dein Passwort</mat-label>
-          <input matInput type="text" placeholder="Passwort" formControlName="password" required>
+          <input matInput type="password" placeholder="Passwort" formControlName="password" required>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Passwort Wiederholen</mat-label>
-          <input matInput type="text" placeholder="Passwort wiederholen" formControlName="passwordRepeat" required>
+          <input matInput type="password" placeholder="Passwort wiederholen" formControlName="passwordConfirm" required>
         </mat-form-field>
+      </div>
+      <div style="margin-bottom: 20px">
+        <mat-checkbox formControlName="termsOfService">Ich habe die <a href="https://www.google.com" target="_blank" formControlName="termsOfService">Nutzungsbedingungen</a> gelesen und akzeptiere sie</mat-checkbox>
       </div>
       <div>
         <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
-        <button mat-stroked-button color="accent" matStepperNext class="right">Account erstellen</button>
+        <button mat-stroked-button color="accent" matStepperNext class="right" [disabled]="accountForm.invalid || loading" (click)="submit()">Account erstellen</button>
       </div>
     </form>
   </mat-step>
