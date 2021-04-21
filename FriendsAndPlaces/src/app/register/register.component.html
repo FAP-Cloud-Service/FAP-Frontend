@@ -37,7 +37,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Postleitzahl</mat-label>
-          <input matInput type="text" placeholder="PLZ" formControlName="zip" required>
+          <input matInput type="text" placeholder="PLZ" formControlName="zip" (focusout)="checkZipCodeInput()" (focusin)="disableCityInput()" required>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Stadt</mat-label>

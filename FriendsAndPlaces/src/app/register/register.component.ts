@@ -4,6 +4,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { CountryService } from '../services/country.service';
+import {ZipcodeService} from "../services/zipcode.service";
 
 @Component({
   selector: 'app-register',
@@ -37,7 +38,11 @@ export class RegisterComponent implements OnInit {
     passwordConfirm: new FormControl('', Validators.required),
     termsOfService: new FormControl('', Validators.requiredTrue)
   });
-  constructor(public dialogRef: MatDialogRef<RegisterComponent>, private countryService: CountryService) { }
+  constructor(
+    public dialogRef: MatDialogRef<RegisterComponent>,
+    private countryService: CountryService,
+    private zipcodeService: ZipcodeService)
+  { }
   closeDialog(): void {
     this.dialogRef.close();
   }
@@ -73,5 +78,22 @@ export class RegisterComponent implements OnInit {
         this.countryLoading = false;
       }
     );
+  }
+  checkZipCodeInput(): void {
+    this.zipcodeService.getCityByZipCode(this.addressForm.controls.zip.value).subscribe(
+      (response) => {
+        if (response.records.length > 1) {
+          console.log('Es wurden zuviele Ergebnisse gefunden!');
+        }
+        console.log(response.records);
+        console.log(response.records[0].fields.plz_name);
+        this.addressForm.controls.city.setValue(response.records[0].fields.plz_name);
+        this.addressForm.controls.zip.setValue(response.records[0].fields.plz_code);
+      }
+    );
+    this.addressForm.enable();
+  }
+  disableCityInput(): void {
+    this.addressForm.controls.city.disable();
   }
 }
