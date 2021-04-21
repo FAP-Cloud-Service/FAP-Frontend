@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
+import {Observable, Subscription} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import { CountryService } from '../services/country.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +12,11 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class RegisterComponent implements OnInit {
   loading = false;
+  countryLoading = false;
+  countries: any;
   heading = 'Neuen Account anlegen...';
+  countryOptions: string[] = [];
+  observableCountryOptions: Observable<string[]>;
   personalForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required)
@@ -30,7 +37,7 @@ export class RegisterComponent implements OnInit {
     passwordConfirm: new FormControl('', Validators.required),
     termsOfService: new FormControl('', Validators.requiredTrue)
   });
-  constructor(public dialogRef: MatDialogRef<RegisterComponent>) { }
+  constructor(public dialogRef: MatDialogRef<RegisterComponent>, private countryService: CountryService) { }
   closeDialog(): void {
     this.dialogRef.close();
   }
@@ -43,5 +50,28 @@ export class RegisterComponent implements OnInit {
     this.personalForm.disable();
   }
   ngOnInit(): void {
+    this.observableCountryOptions = this.addressForm.controls.country.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+    this.loadCountries();
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return  this.countryOptions.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
+  loadCountries(): void {
+    this.countryLoading = true;
+    this.countryService.getAllCountries().subscribe(
+      (countries) => {
+        this.countries = countries;
+        for (const key in this.countries.data) {
+          if (this.countries.data.hasOwnProperty(key)) {
+             this.countryOptions.push(this.countries.data[key].country);
+          }
+        }
+        this.countryLoading = false;
+      }
+    );
   }
 }

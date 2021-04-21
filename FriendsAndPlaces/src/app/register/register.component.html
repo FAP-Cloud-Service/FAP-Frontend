@@ -1,4 +1,5 @@
-<button mat-stroked-button color="warn" aria-label="Example icon button with a plus one icon" type="button" [mat-dialog-close]="dialogRef" class="right" [disabled]="loading">
+<button mat-stroked-button color="warn" aria-label="Example icon button with a plus one icon"
+        type="button" [mat-dialog-close]="dialogRef" class="right" [disabled]="loading">
   Schließen
 </button>
 <h1>{{heading}}</h1>
@@ -20,7 +21,9 @@
       </div>
     </form>
     <div>
-      <button mat-stroked-button color="accent" matStepperNext class="right" [disabled]="personalForm.invalid">Nächste Seite</button>
+      <button mat-stroked-button color="accent" matStepperNext class="right"
+              [disabled]="personalForm.invalid">Nächste Seite
+      </button>
     </div>
   </mat-step>
   <mat-step [stepControl]="addressForm">
@@ -40,14 +43,26 @@
           <mat-label>Stadt</mat-label>
           <input matInput type="text" placeholder="Musterstadt" formControlName="city" required>
         </mat-form-field>
+        <mat-progress-bar mode="indeterminate" [class.invisible]="! countryLoading"></mat-progress-bar>
         <mat-form-field appearance="fill" class="wide-input">
-          <mat-label>Land</mat-label>
-          <input matInput type="text" placeholder="Deutschland" formControlName="country" required>
+          <mat-label>Land *</mat-label>
+          <input type="text"
+                 placeholder="Land *"
+                 aria-label="country"
+                 matInput
+                 formControlName="country"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of observableCountryOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
       <div>
         <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
-        <button mat-stroked-button color="accent" matStepperNext class="right" [disabled]="addressForm.invalid">Nächste Seite
+        <button mat-stroked-button color="accent" matStepperNext class="right"
+                [disabled]="addressForm.invalid">Nächste Seite
         </button>
       </div>
     </form>
@@ -59,16 +74,20 @@
         <h1>Deine Kontaktdaten</h1>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Telefonnummer</mat-label>
-          <input matInput type="text" placeholder="+45 123 456 78" formControlName="mobile" required>
+          <input matInput type="text" placeholder="+45 123 456 78" formControlName="mobile"
+                 required>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Deine E-Mail Addresse</mat-label>
-          <input matInput type="text" placeholder="user@example.com" formControlName="email" required>
+          <input matInput type="text" placeholder="user@example.com" formControlName="email"
+                 required>
         </mat-form-field>
       </div>
       <div>
         <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
-        <button mat-stroked-button color="accent" matStepperNext class="right" [disabled]="contactForm.invalid">Nächste Seite</button>
+        <button mat-stroked-button color="accent" matStepperNext class="right"
+                [disabled]="contactForm.invalid">Nächste Seite
+        </button>
       </div>
     </form>
   </mat-step>
@@ -83,19 +102,27 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Dein Passwort</mat-label>
-          <input matInput type="password" placeholder="Passwort" formControlName="password" required>
+          <input matInput type="password" placeholder="Passwort" formControlName="password"
+                 required>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Passwort Wiederholen</mat-label>
-          <input matInput type="password" placeholder="Passwort wiederholen" formControlName="passwordConfirm" required>
+          <input matInput type="password" placeholder="Passwort wiederholen"
+                 formControlName="passwordConfirm" required>
         </mat-form-field>
       </div>
       <div style="margin-bottom: 20px">
-        <mat-checkbox formControlName="termsOfService">Ich habe die <a href="https://www.google.com" target="_blank" formControlName="termsOfService">Nutzungsbedingungen</a> gelesen und akzeptiere sie</mat-checkbox>
+        <mat-checkbox formControlName="termsOfService">Ich habe die <a href="https://www.google.com"
+                                                                       target="_blank"
+                                                                       formControlName="termsOfService">Nutzungsbedingungen</a>
+          gelesen und akzeptiere sie
+        </mat-checkbox>
       </div>
       <div>
         <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
-        <button mat-stroked-button color="accent" matStepperNext class="right" [disabled]="accountForm.invalid || loading" (click)="submit()">Account erstellen</button>
+        <button mat-stroked-button color="accent" matStepperNext class="right"
+                [disabled]="accountForm.invalid || loading" (click)="submit()">Account erstellen
+        </button>
       </div>
     </form>
   </mat-step>
