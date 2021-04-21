@@ -4,7 +4,8 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { CountryService } from '../services/country.service';
-import {ZipcodeService} from "../services/zipcode.service";
+import {ZipcodeService} from '../services/zipcode.service';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit {
   });
   addressForm = new FormGroup({
     street: new FormControl('', Validators.required),
-    zip: new FormControl('', Validators.required),
+    zip: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(5)]),
     city: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required)
   });
@@ -41,7 +42,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<RegisterComponent>,
     private countryService: CountryService,
-    private zipcodeService: ZipcodeService)
+    private zipcodeService: ZipcodeService,
+    private snackBar: MatSnackBar)
   { }
   closeDialog(): void {
     this.dialogRef.close();
@@ -82,18 +84,21 @@ export class RegisterComponent implements OnInit {
   checkZipCodeInput(): void {
     this.zipcodeService.getCityByZipCode(this.addressForm.controls.zip.value).subscribe(
       (response) => {
-        if (response.records.length > 1) {
-          console.log('Es wurden zuviele Ergebnisse gefunden!');
+        if ( response.records.length <= 3 && response.records.length >= 1 ) {
+          console.log(response.records);
+          console.log(response.records[0].fields.plz_name);
+          this.addressForm.controls.city.setValue(response.records[0].fields.plz_name);
+          this.addressForm.controls.zip.setValue(response.records[0].fields.plz_code);
+        } else {
+          this.snackBar.open('Die eingegebene Postleitzahl ist ungültig', '', { duration: 5000 });
+          this.addressForm.controls.city.setValue('');
         }
-        console.log(response.records);
-        console.log(response.records[0].fields.plz_name);
-        this.addressForm.controls.city.setValue(response.records[0].fields.plz_name);
-        this.addressForm.controls.zip.setValue(response.records[0].fields.plz_code);
       }
     );
     this.addressForm.enable();
   }
   disableCityInput(): void {
+    this.addressForm.controls.city.setValue('');
     this.addressForm.controls.city.disable();
   }
 }
