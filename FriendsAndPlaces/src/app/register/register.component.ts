@@ -6,7 +6,7 @@ import {map, startWith} from 'rxjs/operators';
 import { CountryService } from '../services/country.service';
 import {ZipcodeService} from '../services/zipcode.service';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
-import {AbortDialogComponent} from "../abort-dialog/abort-dialog.component";
+import {AbortDialogComponent} from '../abort-dialog/abort-dialog.component';
 
 @Component({
   selector: 'app-register',
@@ -14,28 +14,30 @@ import {AbortDialogComponent} from "../abort-dialog/abort-dialog.component";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  // variables
   loading = false;
   countryLoading = false;
   countries: any;
   heading = 'Neuen Account anlegen...';
   countryOptions: string[] = [];
   observableCountryOptions: Observable<string[]>;
+  // stepper forms
   personalForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required)
   });
   addressForm = new FormGroup({
     street: new FormControl('', Validators.required),
-    zip: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(5)]),
+    zip: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(5), Validators.pattern(/^[0-9]*$/)]),
     city: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required)
   });
   contactForm = new FormGroup({
-    mobile: new FormControl('', Validators.required),
+    mobile: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
   accountForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required, Validators.pattern(/^[\S]+$/)]),
     password: new FormControl('', [Validators.required]),
     passwordConfirm: new FormControl('', Validators.required),
     termsOfService: new FormControl('', Validators.requiredTrue)
@@ -47,9 +49,7 @@ export class RegisterComponent implements OnInit {
     private snackBar: MatSnackBar,
     public abortDialog: MatDialog)
   { }
-  closeDialog(): void {
-    this.dialogRef.close();
-  }
+  // api calls
   submit(): void {
     this.heading = 'Account wird erstellt. Bitte warten...';
     this.loading = true;
@@ -64,10 +64,6 @@ export class RegisterComponent implements OnInit {
       map(value => this._filter(value))
     );
     this.loadCountries();
-  }
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return  this.countryOptions.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
   loadCountries(): void {
     this.countryLoading = true;
@@ -99,10 +95,7 @@ export class RegisterComponent implements OnInit {
     );
     this.addressForm.enable();
   }
-  disableCityInput(): void {
-    this.addressForm.controls.city.setValue('');
-    this.addressForm.controls.city.disable();
-  }
+  // Utility
   openAbortDialog(): void {
     const abortDialogRef = this.abortDialog.open(AbortDialogComponent);
     abortDialogRef.afterClosed().subscribe(result => {
@@ -111,5 +104,22 @@ export class RegisterComponent implements OnInit {
         this.dialogRef.close();
       }
     });
+  }
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+  disableCityInput(): void {
+    this.addressForm.controls.city.setValue('');
+    this.addressForm.controls.city.disable();
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return  this.countryOptions.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
+  getValidationError(formControlName: any, errorType: string, message: string): string {
+    if (formControlName.hasError('required')) {
+      return 'Pflichtfeld';
+    }
+    return formControlName.hasError(errorType) ? message : '';
   }
 }

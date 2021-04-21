@@ -27,3 +27,15 @@ form {
 .invisible {
   display: none;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove Arrows from Number input for all commonly used browser (used in zip code input filed) */
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

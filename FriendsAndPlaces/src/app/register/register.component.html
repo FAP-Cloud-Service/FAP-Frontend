@@ -13,18 +13,20 @@
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Gibt deinen Vornamen ein</mat-label>
           <input matInput type="text" placeholder="Vorname" formControlName="firstName" required>
+          <mat-error>Pflichtfeld</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Gibt deinen Nachnamen ein</mat-label>
           <input matInput type="text" placeholder="Nachname" formControlName="lastName" required>
+          <mat-error>Pflichtfeld</mat-error>
         </mat-form-field>
       </div>
+      <div>
+        <button mat-stroked-button color="accent" matStepperNext class="right"
+                [disabled]="personalForm.invalid">Nächste Seite
+        </button>
+      </div>
     </form>
-    <div>
-      <button mat-stroked-button color="accent" matStepperNext class="right"
-              [disabled]="personalForm.invalid">Nächste Seite
-      </button>
-    </div>
   </mat-step>
   <mat-step [stepControl]="addressForm">
     <form [formGroup]="addressForm">
@@ -32,26 +34,32 @@
       <div class="center">
         <h1>Deine Anschrift</h1>
         <mat-form-field appearance="fill" class="wide-input">
-          <mat-label>Straße</mat-label>
+          <mat-label>Straße und Hausnummer</mat-label>
           <input matInput type="text" placeholder="Musterstraße" formControlName="street" required>
+          <mat-error>Pflichtfeld</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Postleitzahl</mat-label>
-          <input matInput type="text" placeholder="PLZ" formControlName="zip" (focusout)="checkZipCodeInput()" (focusin)="disableCityInput()" required>
+          <input matInput placeholder="PLZ" formControlName="zip" maxlength="5"
+                 (focusout)="checkZipCodeInput()" (focusin)="disableCityInput()" required>
+          <mat-error>{{ getValidationError(addressForm.controls.zip, 'pattern', 'Die eingegebene Postleitzahl enhällt Sonderzeichen') }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Stadt</mat-label>
           <input matInput type="text" placeholder="Musterstadt" formControlName="city" required>
+          <mat-error>Pflichtfeld</mat-error>
         </mat-form-field>
-        <mat-progress-bar mode="indeterminate" [class.invisible]="! countryLoading"></mat-progress-bar>
+        <mat-progress-bar mode="indeterminate"
+                          [class.invisible]="! countryLoading"></mat-progress-bar>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Land *</mat-label>
           <input type="text"
-                 placeholder="Land *"
+                 placeholder="Land (Englisch)*"
                  aria-label="country"
                  matInput
                  formControlName="country"
                  [matAutocomplete]="auto">
+          <mat-error>Pflichtfeld</mat-error>
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
             <mat-option *ngFor="let option of observableCountryOptions | async" [value]="option">
               {{option}}
@@ -74,13 +82,14 @@
         <h1>Deine Kontaktdaten</h1>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Telefonnummer</mat-label>
-          <input matInput type="text" placeholder="+45 123 456 78" formControlName="mobile"
+          <input matInput type="text" placeholder="0123 456 789" formControlName="mobile"
                  required>
+          <mat-error>{{ getValidationError(contactForm.controls.mobile, 'pattern', 'Die eingegebene Telefonnummer enhällt Sonderzeichen') }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Deine E-Mail Addresse</mat-label>
-          <input matInput type="text" placeholder="user@example.com" formControlName="email"
-                 required>
+          <input matInput type="email" placeholder="user@example.com" formControlName="email" required>
+          <mat-error>{{getValidationError(contactForm.controls.email, 'email', 'Die eingegebene E-Mail ist ungeültig')}}</mat-error>
         </mat-form-field>
       </div>
       <div>
@@ -98,17 +107,20 @@
         <h1>Deine Zugangsdaten</h1>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Benutzername</mat-label>
-          <input matInput type="text" placeholder="UserName" formControlName="username" required>
+          <input matInput type="text" placeholder="UserName" formControlName="username" #username autocomplete="username"
+                 maxlength="10" required id="username">
+          <mat-hint>{{username.value?.length || 0}}/10</mat-hint>
+          <mat-error>{{getValidationError(accountForm.controls.username, 'pattern', 'Der eingegebene Benutzername enthällt Leerzeichen')}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Dein Passwort</mat-label>
-          <input matInput type="password" placeholder="Passwort" formControlName="password"
-                 required>
+          <input matInput type="password" placeholder="Passwort" formControlName="password" autocomplete="new-password"
+                 required id="password">
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Passwort Wiederholen</mat-label>
-          <input matInput type="password" placeholder="Passwort wiederholen"
-                 formControlName="passwordConfirm" required>
+          <input matInput type="password" placeholder="Passwort wiederholen" autocomplete="new-password"
+                 formControlName="passwordConfirm" required id="passwordRepeat">
         </mat-form-field>
       </div>
       <div style="margin-bottom: 20px">
