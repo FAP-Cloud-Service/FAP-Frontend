@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import {RegisterComponent} from './register/register.component';
+import { AbortDialogComponent } from './abort-dialog/abort-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {RegisterComponent} from './register/register.component';
     StartPageComponent,
     SidenavContentComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AbortDialogComponent
   ],
   imports: [
     BrowserModule,

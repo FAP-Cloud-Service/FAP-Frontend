@@ -1,5 +1,5 @@
 <button mat-stroked-button color="warn" aria-label="Example icon button with a plus one icon"
-        type="button" [mat-dialog-close]="dialogRef" class="right" [disabled]="loading">
+        type="button" class="right" [disabled]="loading" (click)="openAbortDialog()">
   Schließen
 </button>
 <h1>{{heading}}</h1>

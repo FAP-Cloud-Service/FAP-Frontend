@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { CountryService } from '../services/country.service';
 import {ZipcodeService} from '../services/zipcode.service';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {AbortDialogComponent} from "../abort-dialog/abort-dialog.component";
 
 @Component({
   selector: 'app-register',
@@ -43,7 +44,8 @@ export class RegisterComponent implements OnInit {
     public dialogRef: MatDialogRef<RegisterComponent>,
     private countryService: CountryService,
     private zipcodeService: ZipcodeService,
-    private snackBar: MatSnackBar)
+    private snackBar: MatSnackBar,
+    public abortDialog: MatDialog)
   { }
   closeDialog(): void {
     this.dialogRef.close();
@@ -100,5 +102,14 @@ export class RegisterComponent implements OnInit {
   disableCityInput(): void {
     this.addressForm.controls.city.setValue('');
     this.addressForm.controls.city.disable();
+  }
+  openAbortDialog(): void {
+    const abortDialogRef = this.abortDialog.open(AbortDialogComponent);
+    abortDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.snackBar.open('Die Registrierung wurde abgebrochen', '', { duration: 5000 });
+        this.dialogRef.close();
+      }
+    });
   }
 }
