@@ -40,11 +40,9 @@ jobs:
         with:
           name: dist
           path: ./FriendsAndPlaces/dist/
-      - name: "[DEBUG] Show Folder Structure"
-        run: ls -l && cd FriendsAndPlaces && ls -l && cd dist && ls -l
       - name: Login to GitHub Container Registry
         run: echo ${{ secrets.PACKAGES_ACCESS_TOKEN }} | docker login docker.pkg.github.com -u leonschbbht --password-stdin
       - name: Build Docker image
-        run: docker build --tag docker.pkg.github.com/fap-cloud-service/frontend/prod .
+        run: docker build --tag docker.pkg.github.com/fap-cloud-service/nginx-frontend/ .
       - name: Push to GitHub Packages Container Registry
-        run: docker push docker.pkg.github.com/fap-cloud-service/frontend/prod
+        run: docker push docker.pkg.github.com/fap-cloud-service/nginx-frontend/
