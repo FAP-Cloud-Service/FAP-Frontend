@@ -15,9 +15,11 @@ jobs:
         with:
           node-version: '15.14.x'
       - name: Change directory
-        run: cd FriendsAndPlaces && ls -l
+        run: cd FriendsAndPlaces
+      - name: Setup angular cli
+        run: npm install -g @angular/cli
       - name: Install dependencies
-        run: npm i
+        run: npm install
       - name: Build angular resources
         run:  ng build --prod
       - name: Upload artifact
