@@ -23,8 +23,6 @@ jobs:
         run: npm install
       - name: Build angular resources
         run:  npm run build:prod
-      - name: "[DEBUG] Print directory structure"
-        run: ls -l
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -41,11 +39,12 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: dist
-          path: FriendsAndPlaces/dist/
-      - name: Push to GitHub Packages
-        uses: docker/build-push-action@v1
-        with:
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: FAP-Cloud-Service/frontend
-          tag_with_ref: true
+          path: FriendsAndPlaces/
+      - name: "[DEBUG] Show Folder Structure"
+        run: ls -l && cd FriendsAndPlaces && ls -l && cd dist && ls -l
+      - name: Login to GitHub Container Registry
+        run: echo ${{ secrets.PACKAGES_ACCESS_TOKEN }} | docker login docker.pkg.github.com -u leonschbbht --password-stdin
+      - name: Build Docker image
+        run: docker build ./ --tag docker.pkg.github.com/FAP-Cloud-Service/frontend
+      - name: Push to GitHub Packages Container Registry
+        run: docker push docker.pkg.github.com/FAP-Cloud-Service/frontend
