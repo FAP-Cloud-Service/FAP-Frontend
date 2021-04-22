@@ -1,7 +1,8 @@
 name: Publish Docker image
 on:
-  release:
-    types: [published]
+  push:
+    branches: 
+      - develop
 jobs:
   build_angular_project:
     name: Build angular project
@@ -13,6 +14,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '15.14.x'
+      - name: Change directory
+        run: cd FriendsAndPlaces
       - name: Install dependencies
         run: npm i
       - name: Build angular resources
