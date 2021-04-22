@@ -7,6 +7,9 @@ jobs:
   build_angular_project:
     name: Build angular project
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./FriendsAndPlaces
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -14,19 +17,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '15.14.x'
-      - name: Change directory
-        run: cd FriendsAndPlaces
       - name: Setup angular cli
         run: npm install -g @angular/cli
       - name: Install dependencies
         run: npm install
       - name: Build angular resources
-        run:  ls -l && ng build --prod
+        run:  npm run build:prod
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: /FriendsAndPlaces/dist/
+          path: dist/
   build_docker_image:
     needs: build_angular_project
     name: Build and push docker image
