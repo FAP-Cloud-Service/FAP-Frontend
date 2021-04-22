@@ -1,12 +1,36 @@
-.example-container {
+form {
   margin: 4rem auto;
   width: 50%;
 }
 
-.wide-center {
+.wide-input {
   width: 100%;
 }
 
 button {
-  width: 25%;
+  width: 50%;
+  text-align: center;
+}
+
+.logo-box {
+  max-width: 150px;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.logo-box img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+h3 {
+  text-align: center;
+}
+
+.invisible {
+  display: none;
 }

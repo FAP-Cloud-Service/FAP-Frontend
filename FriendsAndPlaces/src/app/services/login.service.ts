@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
-
-  constructor() { }
+  performLogin(username: string, password: string): void {
+  }
 }

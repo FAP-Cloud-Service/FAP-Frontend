@@ -1,21 +1,25 @@
-<div class="example-container">
+<div class="logo-box">
+</div>
+<h3>Friends and Places</h3>
+<form [formGroup]="loginForm">
   <h1>Login</h1>
   <p>
-    <mat-form-field appearance="fill" class="wide-center">
+    <mat-form-field appearance="fill" class="wide-input">
       <mat-label>Gib deine E-Mail ein</mat-label>
-      <input matInput placeholder="nutzer@beispiel.de" [formControl]="email" required>
-      <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+      <input matInput placeholder="nutzer@beispiel.de" formControlName="email" required>
+      <mat-error *ngIf="loginForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
     </mat-form-field>
   </p>
   <p>
-    <mat-form-field appearance="fill" class="wide-center">
+    <mat-form-field appearance="fill" class="wide-input">
       <mat-label>Gib deine Passwort ein</mat-label>
-      <input matInput placeholder="Passwort" [formControl]="password" required>
-      <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      <input matInput type="password" placeholder="Passwort" formControlName="password" required>
+      <mat-error *ngIf="loginForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
     </mat-form-field>
   </p>
-  <p>
-    <button mat-raised-button color="accent" type="submit">Anmelden</button>
-    <button mat-raised-button color="stroked">Registrieren</button>
-  </p>
-</div>
+  <div class="button-row">
+    <mat-progress-bar mode="query" style="width: 50%" color="accent" [class.invisible]="! loading"></mat-progress-bar>
+    <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid || loading" (click)="performLogin()">Anmelden</button>
+    <button mat-stroked-button color="accent" type="button" (click)="openRegisterDialog()" [disabled]="loading">Registrieren</button>
+  </div>
+</form>

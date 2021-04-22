@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'FriendsAndPlaces';
+  title = 'Friends And Places';
 
   sidenavOpen = false;
   selectedPage = 'start';
@@ -18,7 +18,7 @@ export class AppComponent {
     }
   }
 
-  selectPage(value: string) {
+  selectPage(value: string): void {
     this.selectedPage = value;
     this.sidenavOpen = false;
   }
