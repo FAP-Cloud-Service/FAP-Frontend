@@ -39,7 +39,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: dist
-          path: ./dist/
+          path: ./FriendsAndPlaces/dist/
       - name: "[DEBUG] Show Folder Structure"
         run: ls -l && cd FriendsAndPlaces && ls -l && cd dist && ls -l
       - name: Login to GitHub Container Registry
