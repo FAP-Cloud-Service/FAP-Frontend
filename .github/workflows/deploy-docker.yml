@@ -27,7 +27,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: FriendsAndPlaces/dist/
   build_docker_image:
     needs: build_angular_project
     name: Build and push docker image
