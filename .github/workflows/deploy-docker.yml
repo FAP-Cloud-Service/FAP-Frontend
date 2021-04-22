@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: dist/
+          path: ./dist/
   build_docker_image:
     needs: build_angular_project
     name: Build and push docker image
@@ -39,11 +39,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: dist
-          path: FriendsAndPlaces/
+          path: FriendsAndPlaces/dist/
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
-          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: FAP-Cloud-Service/frontend
