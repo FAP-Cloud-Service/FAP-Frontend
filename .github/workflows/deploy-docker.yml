@@ -47,4 +47,4 @@ jobs:
       - name: Build Docker image
         run: docker build --tag docker.pkg.github.com/fap-cloud-service/frontend .
       - name: Push to GitHub Packages Container Registry
-        run: docker push docker.pkg.github.com/FAP-Cloud-Service/frontend
+        run: docker push docker.pkg.github.com/fap-cloud-service/frontend
