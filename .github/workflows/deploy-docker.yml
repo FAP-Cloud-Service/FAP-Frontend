@@ -1,8 +1,7 @@
 name: Publish Docker image
 on:
-  push:
-    branches: 
-      - develop
+  release:
+    types: [published]
 jobs:
   build_angular_project:
     name: Build angular project
