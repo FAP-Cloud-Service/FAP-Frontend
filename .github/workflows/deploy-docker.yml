@@ -43,6 +43,6 @@ jobs:
       - name: Login to GitHub Container Registry
         run: echo ${{ secrets.PACKAGES_ACCESS_TOKEN }} | docker login docker.pkg.github.com -u leonschbbht --password-stdin
       - name: Build Docker image
-        run: docker build --tag docker.pkg.github.com/fap-cloud-service/nginx-frontend/ .
+        run: docker build --tag docker.pkg.github.com/fap-cloud-service/fap-frontend/nginx .
       - name: Push to GitHub Packages Container Registry
-        run: docker push docker.pkg.github.com/fap-cloud-service/nginx-frontend/
+        run: docker push docker.pkg.github.com/fap-cloud-service/fap-frontend/nginx
