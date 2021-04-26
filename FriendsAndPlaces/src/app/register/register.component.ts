@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   heading = 'Neuen Account anlegen...';
   countryOptions: string[] = [];
   observableCountryOptions: Observable<string[]>;
+  passwordsNotEqual: boolean;
   // stepper forms
   personalForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -121,5 +122,13 @@ export class RegisterComponent implements OnInit {
       return 'Pflichtfeld';
     }
     return formControlName.hasError(errorType) ? message : '';
+  }
+  getPassowrdError(): string | null {
+    if (this.accountForm.controls.password.value !== this.accountForm.controls.passwordConfirm.value) {
+      this.passwordsNotEqual = true;
+      return 'Die eingegebenen Passwörter stimmen nicht überein';
+    }
+    this.passwordsNotEqual = false;
+    return null;
   }
 }
