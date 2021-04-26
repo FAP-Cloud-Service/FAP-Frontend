@@ -1,1 +1,37 @@
+.start-page {
+  &__container {
+    margin: 16px;
+  }
 
+  &__heading {
+    text-align: center;
+    margin-top: 64px;
+  }
+
+  &__slogan {
+    text-align: center;
+    margin-top: 128px;
+  }
+
+  &__content-container {
+    display: flex; flex-flow: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-left: 32px;
+    margin-right: 64px;
+
+    &__login {
+      display: flex;
+      flex-flow: column;
+      margin-top: 96px;
+
+      &__button {
+        margin-top: 16px;
+      }
+    }
+
+    &__image {
+      max-width: 750px;
+    }
+  }
+}
