@@ -5,9 +5,9 @@
   <h1>Login</h1>
   <p>
     <mat-form-field appearance="fill" class="wide-input">
-      <mat-label>Gib deine E-Mail ein</mat-label>
-      <input matInput placeholder="nutzer@beispiel.de" formControlName="email" required>
-      <mat-error *ngIf="loginForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+      <mat-label>Gib deinen Benutzernamen ein</mat-label>
+      <input matInput placeholder="Benutzername" formControlName="username" required>
+      <mat-error *ngIf="loginForm.controls.username.invalid">{{getUsernameErrorMessage()}}</mat-error>
     </mat-form-field>
   </p>
   <p>

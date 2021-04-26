@@ -11,16 +11,16 @@ import {RegisterComponent} from '../register/register.component';
 export class LoginComponent implements OnInit {
   loading = false;
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    username: new FormControl('', [Validators.required, Validators.pattern(/^[\S]+$/)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
   constructor(public dialog: MatDialog) { }
 
-  getEmailErrorMessage(): string {
-    if (this.loginForm.controls.email.hasError('required')) {
+  getUsernameErrorMessage(): string {
+    if (this.loginForm.controls.username.hasError('required')) {
       return 'Pflichtfeld';
     }
-    return this.loginForm.controls.email.hasError('email') ? 'E-Mail ungeültig' : '';
+    return this.loginForm.controls.username.hasError('pattern') ? 'Der Benutzername enthällt Leerzeichen' : '';
   }
   getPasswordErrorMessage(): string {
     if (this.loginForm.controls.password.hasError('required')) {
