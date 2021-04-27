@@ -1,0 +1,141 @@
+<button mat-stroked-button color="warn" aria-label="Example icon button with a plus one icon"
+        type="button" class="right" [disabled]="loading" (click)="openAbortDialog()">
+  Schließen
+</button>
+<h1>{{heading}}</h1>
+<mat-progress-bar mode="indeterminate" [class.invisible]="! loading"></mat-progress-bar>
+<mat-horizontal-stepper #stepper id="stepper">
+  <mat-step [stepControl]="personalForm">
+    <form [formGroup]="personalForm">
+      <ng-template matStepLabel>Persönliche Daten</ng-template>
+      <div class="center">
+        <h1>Dein Name</h1>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Gibt deinen Vornamen ein</mat-label>
+          <input matInput type="text" placeholder="Vorname" formControlName="firstName" required>
+          <mat-error>Pflichtfeld</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Gibt deinen Nachnamen ein</mat-label>
+          <input matInput type="text" placeholder="Nachname" formControlName="lastName" required>
+          <mat-error>Pflichtfeld</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-stroked-button color="accent" matStepperNext class="right"
+                [disabled]="personalForm.invalid">Nächste Seite
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="addressForm">
+    <form [formGroup]="addressForm">
+      <ng-template matStepLabel>Anschrift</ng-template>
+      <div class="center">
+        <h1>Deine Anschrift</h1>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Straße und Hausnummer</mat-label>
+          <input matInput type="text" placeholder="Musterstraße" formControlName="street" required>
+          <mat-error>Pflichtfeld</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Postleitzahl</mat-label>
+          <input matInput placeholder="PLZ" formControlName="zip" maxlength="5"
+                 (focusout)="checkZipCodeInput()" (focusin)="disableCityInput()" required>
+          <mat-error>{{ getValidationError(addressForm.controls.zip, 'pattern', 'Die eingegebene Postleitzahl enhällt Sonderzeichen') }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Stadt</mat-label>
+          <input matInput type="text" placeholder="Musterstadt" formControlName="city" required>
+          <mat-error>Pflichtfeld</mat-error>
+        </mat-form-field>
+        <mat-progress-bar mode="indeterminate"
+                          [class.invisible]="! countryLoading"></mat-progress-bar>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Land *</mat-label>
+          <input type="text"
+                 placeholder="Land (Englisch)*"
+                 aria-label="country"
+                 matInput
+                 formControlName="country"
+                 [matAutocomplete]="auto">
+          <mat-error>Pflichtfeld</mat-error>
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of observableCountryOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
+        <button mat-stroked-button color="accent" matStepperNext class="right"
+                [disabled]="addressForm.invalid">Nächste Seite
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="contactForm">
+    <form [formGroup]="contactForm">
+      <ng-template matStepLabel>Kontaktinformationen</ng-template>
+      <div class="center">
+        <h1>Deine Kontaktdaten</h1>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Telefonnummer</mat-label>
+          <input matInput type="text" placeholder="0123 456 789" formControlName="mobile"
+                 required>
+          <mat-error>{{ getValidationError(contactForm.controls.mobile, 'pattern', 'Die eingegebene Telefonnummer enhällt Sonderzeichen') }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Deine E-Mail Addresse</mat-label>
+          <input matInput type="email" placeholder="user@example.com" formControlName="email" required>
+          <mat-error>{{getValidationError(contactForm.controls.email, 'email', 'Die eingegebene E-Mail ist ungeültig')}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
+        <button mat-stroked-button color="accent" matStepperNext class="right"
+                [disabled]="contactForm.invalid">Nächste Seite
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="accountForm">
+    <form [formGroup]="accountForm">
+      <ng-template matStepLabel>Account Informationen</ng-template>
+      <div class="center">
+        <h1>Deine Zugangsdaten</h1>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Benutzername</mat-label>
+          <input matInput type="text" placeholder="UserName" formControlName="username" #username autocomplete="username"
+                 maxlength="10" required id="username">
+          <mat-hint>{{username.value?.length || 0}}/10</mat-hint>
+          <mat-error>{{getValidationError(accountForm.controls.username, 'pattern', 'Der eingegebene Benutzername enthällt Leerzeichen')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Dein Passwort</mat-label>
+          <input matInput type="password" placeholder="Passwort" formControlName="password" autocomplete="new-password"
+                 required id="password">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Passwort Wiederholen</mat-label>
+          <input matInput type="password" placeholder="Passwort wiederholen" autocomplete="new-password"
+                 formControlName="passwordConfirm" required id="passwordRepeat">
+        </mat-form-field>
+      </div>
+      <div style="margin-bottom: 20px">
+        <mat-checkbox formControlName="termsOfService">Ich habe die <a href="https://www.google.com"
+                                                                       target="_blank"
+                                                                       formControlName="termsOfService">Nutzungsbedingungen</a>
+          gelesen und akzeptiere sie
+        </mat-checkbox>
+      </div>
+      <div>
+        <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
+        <button mat-stroked-button color="accent" matStepperNext class="right"
+                [disabled]="accountForm.invalid || loading" (click)="submit()">Account erstellen
+        </button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>
