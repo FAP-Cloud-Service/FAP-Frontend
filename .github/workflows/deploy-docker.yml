@@ -31,6 +31,7 @@ jobs:
     needs: build_angular_project
     name: Build and push docker image
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
