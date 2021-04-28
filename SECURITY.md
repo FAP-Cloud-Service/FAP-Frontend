@@ -2,7 +2,6 @@
 
 ## Supported Versions
 
-
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.x     | :x:                |
+| 0.x.x   | :x:                |
