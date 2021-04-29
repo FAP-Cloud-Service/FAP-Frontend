@@ -12,6 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {RegisterComponent} from './register/register.component';
 import { AbortDialogComponent } from './abort-dialog/abort-dialog.component';
+import { FriendsComponent } from './friends/friends.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { AbortDialogComponent } from './abort-dialog/abort-dialog.component';
     SidenavContentComponent,
     LoginComponent,
     RegisterComponent,
-    AbortDialogComponent
+    AbortDialogComponent,
+    FriendsComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
