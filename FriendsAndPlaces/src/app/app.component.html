@@ -17,7 +17,7 @@
       <app-login *ngIf="selectedPage == 'login'"></app-login>
       <app-start-page (selectedPage)="selectPage($event)" *ngIf="selectedPage == 'start'"></app-start-page>
       <app-friends (selectedPage)="selectPage($event)" *ngIf="selectedPage == 'friends'"></app-friends>
-      <app-map [longitude]="6.6151"[latitude]="51.8384" (selectedPage)="selectPage($event)" *ngIf="selectedPage == 'map'"></app-map>
+      <app-map [longitude]="6.6151"[latitude]="51.8384" [name]="'Jan'" (selectedPage)="selectPage($event)" *ngIf="selectedPage == 'map'"></app-map>
     </mat-sidenav-content>
   </mat-sidenav-container>
 

@@ -14,6 +14,8 @@ import {RegisterComponent} from './register/register.component';
 import { AbortDialogComponent } from './abort-dialog/abort-dialog.component';
 import { FriendsComponent } from './friends/friends.component';
 import { MapComponent } from './map/map.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 
 @NgModule({
   declarations: [
@@ -24,14 +26,15 @@ import { MapComponent } from './map/map.component';
     RegisterComponent,
     AbortDialogComponent,
     FriendsComponent,
-    MapComponent
+    MapComponent,
   ],
   imports: [
     BrowserModule,
     MaterialModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LeafletModule
   ],
   providers: [],
   bootstrap: [AppComponent]

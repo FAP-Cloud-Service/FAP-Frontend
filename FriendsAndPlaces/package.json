@@ -22,6 +22,9 @@
     "@angular/platform-browser": "~11.2.10",
     "@angular/platform-browser-dynamic": "~11.2.10",
     "@angular/router": "~11.2.10",
+    "@asymmetrik/ngx-leaflet": "^8.1.0",
+    "leaflet": "^1.7.1",
+    "lehrenfried-leaflet": "^1.8.0-beta",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
@@ -31,6 +34,7 @@
     "@angular/cli": "~11.2.9",
     "@angular/compiler-cli": "~11.2.10",
     "@types/jasmine": "~3.6.0",
+    "@types/leaflet": "^1.7.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",

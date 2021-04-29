@@ -1,0 +1,19 @@
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{firstname}} {{lastname}}     </mat-panel-title>
+      <mat-panel-description>
+        Klicke hier um deinen Standort zu speichern
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form>
+      <p></p>
+      <button mat-raised-button color="accent" type="submit">Accent</button>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
+<button mat-raised-button color="accent" type="button" (click)="getLocation()">Koordinaten abrufen</button>
+<h1>Latitude: {{ latitude }}</h1>
+<h1>Longitude: {{ longitude }}</h1>
+<h2 *ngIf="positionWasCalled">Die Standort wurde abgerufen!</h2>
