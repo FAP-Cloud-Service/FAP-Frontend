@@ -1,15 +1,13 @@
-export interface Session {
-  sessionId: string;
+export class Session {
+  SessionId: string;
 }
 
-export interface UserLogin {
+export class UserLogin {
   loginName: string;
-  passwort: {
-    passwort: string;
-  };
+  passwort: string;
 }
 
-export interface UserRegister {
+export class UserRegister {
   username: string;
   password: string;
 }
