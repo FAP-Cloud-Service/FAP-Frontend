@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {RegisterComponent} from '../register/register.component';
@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
     username: new FormControl('', [Validators.required, Validators.pattern(/^[\S]+$/)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
+
+  @Output() sessionChanged = new EventEmitter<Session>();
 
   constructor(
     public dialog: MatDialog,
@@ -64,6 +66,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         this.loginForm.enable();
         this.snackBar.open('Login erfolgreich', '', { duration: 5000 });
+        this.sessionChanged.emit(session);
       },
       () => {
         //TODO: Check for error type -> wrong username/pw

@@ -42,6 +42,13 @@ export class AppComponent {
     this.sidenavOpen = false;
   }
 
+  sessionChanged(session: any) {
+    this.currentSession = session;
+    this.loggedIn = true;
+
+    this.selectPage('start');
+  }
+
   logInOut() {
     if(!this.loggedIn) {
       this.selectPage('login');
