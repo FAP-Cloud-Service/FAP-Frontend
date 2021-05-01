@@ -63,6 +63,7 @@ export class AppComponent {
             this.snackBar.open('Sie wurden erfolgreich abgemeldet!', '', {
               duration: 5000
             });
+            this.currentSession = new SessionSettings();
             this.selectPage('start');
           }, err => {
             console.error('Fehler beim Logout:', err);
