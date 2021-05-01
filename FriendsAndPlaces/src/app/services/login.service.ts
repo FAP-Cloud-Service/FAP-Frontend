@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { API } from '../api.conf';
 import {Observable, of} from 'rxjs';
-import {Session, UserLogin} from '../interfaces/User';
+import {Session, UserLogin, UserLogout} from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,15 @@ export class LoginService {
       console.error(error);
       return of(result as T);
     };
+  }
+
+  performLogout(username: string, session: Session): Observable<any> {
+    const payload: UserLogout = {
+      loginName: username,
+      sitzung: session.SessionId
+    }
+    return this.http.post('/api/logout', payload, {
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+    });
   }
 }

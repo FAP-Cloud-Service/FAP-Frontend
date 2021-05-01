@@ -57,12 +57,17 @@ export class AppComponent {
       logoutDialogRef.afterClosed().subscribe((logout: boolean) => {
         if (logout) {
           //TODO: Add logout operation with loginService
-          this.sessionService.deleteSession();
-          this.loggedIn = false;
-          this.snackBar.open('Sie wurden erfolgreich abgemeldet!', '', {
-            duration: 5000
+          this.loginService.performLogout(this.currentSession.username, this.currentSession.session).subscribe(()=> {
+            this.sessionService.deleteSession();
+            this.loggedIn = false;
+            this.snackBar.open('Sie wurden erfolgreich abgemeldet!', '', {
+              duration: 5000
+            });
+            this.selectPage('start');
+          }, err => {
+            console.error('Fehler beim Logout:', err);
+            this.snackBar.open('Fehler beim Logout', '', {duration: 5000})
           });
-          this.selectPage('start');
         }
       });
     }
