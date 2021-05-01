@@ -5,12 +5,12 @@
     </button>
     <span>Friends and Places</span>
     <span class="toolbar-spacer"></span>
-    <button mat-raised-button color="primary" (click)="logInOut()">{{ loggedIn ? 'Logout' : 'Login'}}</button>
+    <button *ngIf="selectedPage != 'login'" mat-raised-button color="primary" (click)="logInOut()">{{ loggedIn ? 'Logout' : 'Login'}}</button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav">
     <mat-sidenav mode="over" [(opened)]="sidenavOpen">
-      <app-sidenav-content [loggedIn]="loggedIn" (selectedPage)="selectPage($event)"></app-sidenav-content>
+      <app-sidenav-content [loggedIn]="loggedIn" [selectPage]="selectedPage" (selectedPage)="selectPage($event)"></app-sidenav-content>
     </mat-sidenav>
     <mat-sidenav-content>
 

@@ -11,6 +11,8 @@ export class SidenavContentComponent {
 
   @Input() loggedIn: boolean;
 
+  @Input() selectPage: string;
+
   constructor() {  }
 
   selectedPageChanged(value: string) {

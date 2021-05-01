@@ -50,7 +50,7 @@ export class SessionService {
     this.cookieService.set(this.cookieName, JSON.stringify(sessionSettings) ,expirationDate, undefined, undefined, true);
   }
 
-  deleteSession(username: string): void {
+  deleteSession(): void {
     if (this.cookieService.check(this.cookieName)) {
       this.cookieService.delete(this.cookieName);
     }
