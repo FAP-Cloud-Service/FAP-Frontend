@@ -14,7 +14,7 @@ export class LoginService {
   };
   constructor(private http: HttpClient) {}
 
-  performLogin(username: string, password: string): Observable<Session> {
+  performLogin(username: string, password: string): Observable<any> {
     const payload: UserLogin = {
       loginName: username,
       passwort: password
