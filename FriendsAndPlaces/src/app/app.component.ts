@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Session } from 'selenium-webdriver';
+import { SessionService } from './services/session.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,14 @@ export class AppComponent {
   selectedPage = 'start';
   loggedIn = false;
 
-  constructor() {
+  currentSession: Session;
+
+  constructor(private sessionService: SessionService) {
+    const session = this.sessionService.getSessionIfExistsAndValid()
+    if (session.SessionId && session.SessionId != '') {
+      this.loggedIn = true;
+    }
+
     if (!this.loggedIn) {
       this.selectedPage = 'login';
     }

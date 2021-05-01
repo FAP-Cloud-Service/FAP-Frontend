@@ -12,9 +12,9 @@ export class SessionService {
 
   constructor(private cookieService: CookieService) { }
 
-  getSessionIfValid(username: string): Session {
-    if(this.cookieService.check(this.cookieName + '_' + btoa(username))) {
-      const sessionSettings = this.getSessionSettings(username);
+  getSessionIfExistsAndValid(): Session {
+    if(this.cookieService.check(this.cookieName)) {
+      const sessionSettings = this.getSessionSettings();
       if(this.isValidSession(sessionSettings)) {
         return sessionSettings.session;
       }
@@ -22,9 +22,9 @@ export class SessionService {
     return new Session;
   }
 
-  getSessionSettings(username: string): SessionSettings {
-    if (this.cookieService.check(this.cookieName + '_' + btoa(username))) {
-      const cookieContent = this.cookieService.get(this.cookieName + '_' + btoa(username));
+  getSessionSettings(): SessionSettings {
+    if (this.cookieService.check(this.cookieName)) {
+      const cookieContent = this.cookieService.get(this.cookieName);
       const sessionSettings: SessionSettings = JSON.parse(cookieContent);
       // Decode sessionId/username in base64
       sessionSettings.session.SessionId = atob(sessionSettings.session.SessionId);
@@ -47,12 +47,12 @@ export class SessionService {
     let expirationDate = new Date();
     expirationDate.setHours(expirationDate.getHours() + 2);
 
-    this.cookieService.set(this.cookieName + '_' + btoa(username), JSON.stringify(sessionSettings) ,expirationDate, undefined, undefined, true);
+    this.cookieService.set(this.cookieName, JSON.stringify(sessionSettings) ,expirationDate, undefined, undefined, true);
   }
 
   deleteSession(username: string): void {
-    if (this.cookieService.check(this.cookieName + '_' + btoa(username))) {
-      this.cookieService.delete(this.cookieName+ '_' + btoa(username));
+    if (this.cookieService.check(this.cookieName)) {
+      this.cookieService.delete(this.cookieName);
     }
   }
 
