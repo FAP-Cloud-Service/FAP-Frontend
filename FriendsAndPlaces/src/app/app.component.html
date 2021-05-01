@@ -16,7 +16,7 @@
 
       <!-- Add main content components with logic for display here -->
 
-      <app-login *ngIf="selectedPage == 'login'" (sessionChanged)="sessionChanged($event)"></app-login>
+      <app-login *ngIf="selectedPage == 'login'" (sessionChanged)="sessionChanged()"></app-login>
       <app-start-page *ngIf="selectedPage == 'start'" (selectedPage)="selectPage($event)"></app-start-page>
 
     </mat-sidenav-content>

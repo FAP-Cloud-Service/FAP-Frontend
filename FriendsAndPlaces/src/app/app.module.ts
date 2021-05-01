@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {RegisterComponent} from './register/register.component';
 import { AbortDialogComponent } from './abort-dialog/abort-dialog.component';
 import { CookieService } from 'ngx-cookie-service';
+import { LogoutVerificationComponent } from './logout-verification/logout-verification.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CookieService } from 'ngx-cookie-service';
     SidenavContentComponent,
     LoginComponent,
     RegisterComponent,
-    AbortDialogComponent
+    AbortDialogComponent,
+    LogoutVerificationComponent
   ],
   imports: [
     BrowserModule,

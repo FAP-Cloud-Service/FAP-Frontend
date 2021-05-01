@@ -12,17 +12,17 @@ export class SessionService {
 
   constructor(private cookieService: CookieService) { }
 
-  getSessionIfExistsAndValid(): Session {
+  getSessionIfExistsAndValid(): SessionSettings {
     if(this.cookieService.check(this.cookieName)) {
-      const sessionSettings = this.getSessionSettings();
+      const sessionSettings = this.getSession();
       if(this.isValidSession(sessionSettings)) {
-        return sessionSettings.session;
+        return sessionSettings;
       }
     }
-    return new Session;
+    return new SessionSettings();
   }
 
-  getSessionSettings(): SessionSettings {
+  getSession(): SessionSettings {
     if (this.cookieService.check(this.cookieName)) {
       const cookieContent = this.cookieService.get(this.cookieName);
       const sessionSettings: SessionSettings = JSON.parse(cookieContent);
@@ -56,7 +56,7 @@ export class SessionService {
     }
   }
 
-  isValidSession(session: SessionSettings): boolean {
+  private isValidSession(session: SessionSettings): boolean {
     //TODO: Implement when backend has possibility to validate session id
     return true;
   }

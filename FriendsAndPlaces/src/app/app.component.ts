@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Session } from 'selenium-webdriver';
+import { SessionSettings } from './interfaces/session';
+import { LogoutVerificationComponent } from './logout-verification/logout-verification.component';
 import { LoginService } from './services/login.service';
 import { SessionService } from './services/session.service';
 
@@ -16,20 +18,19 @@ export class AppComponent {
   selectedPage = 'start';
 
   loggedIn = false;
-  currentSession: Session;
+  currentSession: SessionSettings;
 
   constructor(
     private sessionService: SessionService,
     private loginService: LoginService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     console.log('Checking for existing session...');
-    const session = this.sessionService.getSessionIfExistsAndValid()
-    if (session.SessionId && session.SessionId != '') {
+    const sess = this.sessionService.getSessionIfExistsAndValid()
+    if (sess.session && sess.session.SessionId != '') {
       this.loggedIn = true;
-      console.log('Found existing session');
-    } else {
-      console.log('No existing session found');
+      this.currentSession = sess;
     }
 
     if (!this.loggedIn) {
@@ -42,10 +43,9 @@ export class AppComponent {
     this.sidenavOpen = false;
   }
 
-  sessionChanged(session: any) {
-    this.currentSession = session;
+  sessionChanged() {
+    this.currentSession = this.sessionService.getSession();
     this.loggedIn = true;
-
     this.selectPage('start');
   }
 
@@ -53,13 +53,18 @@ export class AppComponent {
     if(!this.loggedIn) {
       this.selectPage('login');
     } else {
-      //TODO: Add logout operation with loginService
-      this.sessionService.deleteSession();
-      this.loggedIn = false;
-      this.snackBar.open('Sie wurden erfolgreich abgemeldet!', '', {
-        duration: 5000
+      const logoutDialogRef = this.dialog.open(LogoutVerificationComponent);
+      logoutDialogRef.afterClosed().subscribe((logout: boolean) => {
+        if (logout) {
+          //TODO: Add logout operation with loginService
+          this.sessionService.deleteSession();
+          this.loggedIn = false;
+          this.snackBar.open('Sie wurden erfolgreich abgemeldet!', '', {
+            duration: 5000
+          });
+          this.selectPage('start');
+        }
       });
-      this.selectPage('start');
     }
   }
 
