@@ -4,6 +4,8 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span>Friends and Places</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-raised-button color="primary" (click)="logInOut()">{{ loggedIn ? 'Logout' : 'Login'}}</button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav">

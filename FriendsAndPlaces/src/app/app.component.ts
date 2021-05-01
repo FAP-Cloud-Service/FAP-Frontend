@@ -17,9 +17,14 @@ export class AppComponent {
   currentSession: Session;
 
   constructor(private sessionService: SessionService) {
+    console.log('Checking for existing session...');
+
     const session = this.sessionService.getSessionIfExistsAndValid()
     if (session.SessionId && session.SessionId != '') {
       this.loggedIn = true;
+      console.log('Found existing session');
+    } else {
+      console.log('No existing session found');
     }
 
     if (!this.loggedIn) {
@@ -30,6 +35,10 @@ export class AppComponent {
   selectPage(value: string): void {
     this.selectedPage = value;
     this.sidenavOpen = false;
+  }
+
+  logInOut() {
+    alert('Implement me')
   }
 
 }
