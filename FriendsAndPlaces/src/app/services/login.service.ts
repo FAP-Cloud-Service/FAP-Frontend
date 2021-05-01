@@ -8,7 +8,6 @@ import {Session, UserLogin} from '../interfaces/User';
   providedIn: 'root'
 })
 export class LoginService {
-  API_URL = API.url + 'login/';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -21,7 +20,7 @@ export class LoginService {
     };
 
     return this.http.post<Session>('/api/login', payload, {
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+      headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
     });
   }
 

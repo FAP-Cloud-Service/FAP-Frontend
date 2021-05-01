@@ -1,12 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Observable, Subscription} from 'rxjs';
+import {Observable, of, Subscription} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { CountryService } from '../services/country.service';
 import {ZipcodeService} from '../services/zipcode.service';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {AbortDialogComponent} from '../abort-dialog/abort-dialog.component';
+import {UserRegister} from '../interfaces/User';
+import {RegisterService} from '../services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -48,7 +50,8 @@ export class RegisterComponent implements OnInit {
     private countryService: CountryService,
     private zipcodeService: ZipcodeService,
     private snackBar: MatSnackBar,
-    public abortDialog: MatDialog)
+    public abortDialog: MatDialog,
+    private registerService: RegisterService)
   { }
   // api calls
   submit(): void {
@@ -58,6 +61,38 @@ export class RegisterComponent implements OnInit {
     this.accountForm.disable();
     this.contactForm.disable();
     this.personalForm.disable();
+    const personalFormControls = this.personalForm.controls;
+    const addressFormControls = this.addressForm.controls;
+    const contactFormControls = this.contactForm.controls;
+    const accountFormControls = this.accountForm.controls;
+    const payload = new UserRegister(
+      accountFormControls.username.value,
+      {passwort: accountFormControls.password.value},
+      personalFormControls.firstName.value,
+      personalFormControls.lastName.value,
+      addressFormControls.street.value,
+      addressFormControls.zip.value,
+      addressFormControls.city.value,
+      addressFormControls.country.value,
+      contactFormControls.mobile.value,
+      {adresse: contactFormControls.email.value}
+    );
+    console.log(payload);
+    this.registerService.performRegistartion(payload).subscribe(
+      (response) => {
+        this.snackBar.open('Der Benutzer "' + accountFormControls.username.value + '" wurde angelegt');
+        this.dialogRef.close(accountFormControls.username.value);
+      },
+      (error) => {
+        this.loading = false;
+        this.addressForm.enable();
+        this.accountForm.enable();
+        this.contactForm.enable();
+        this.personalForm.enable();
+        this.snackBar.open('Der benutzer konnte nicht angelegt werden. Fehlercode ' + error.status);
+      },
+      () => {}
+  );
   }
   ngOnInit(): void {
     this.observableCountryOptions = this.addressForm.controls.country.valueChanges.pipe(

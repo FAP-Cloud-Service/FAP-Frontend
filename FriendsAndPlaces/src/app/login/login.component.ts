@@ -34,12 +34,15 @@ export class LoginComponent implements OnInit {
   }
 
   openRegisterDialog(): void {
-    this.dialog.open(RegisterComponent, {
+    const registerDialog = this.dialog.open(RegisterComponent, {
       disableClose: true,
       hasBackdrop: true,
       minWidth: '40%',
       restoreFocus: true
     });
+    registerDialog.afterClosed().subscribe(
+      data => this.loginForm.controls.username.setValue(data)
+    );
   }
 
   performLogin(): void {

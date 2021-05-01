@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve  --port 4201 --proxy-config proxy.conf.json --ssl",
+    "start": "ng serve --open  --port 4201 --proxy-config proxy.conf.json --ssl",
     "build:test": "ng build",
     "build:prod": "ng build --prod",
     "test": "ng test",
