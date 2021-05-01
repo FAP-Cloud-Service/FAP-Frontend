@@ -35,3 +35,8 @@ export class UserRegister {
     this.email = email;
   }
 }
+
+export class UserLogout {
+  loginName: string;
+  sitzung: string;
+}

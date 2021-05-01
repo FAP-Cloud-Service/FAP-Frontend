@@ -1,0 +1,7 @@
+.confirm-button-container {
+  display: flex;
+  justify-content: flex-end;
+  &__cancel-button {
+    margin-right: 16px;
+  }
+}
