@@ -4,7 +4,9 @@ export class Session {
 
 export class UserLogin {
   loginName: string;
-  passwort: string;
+  passwort: {
+    passwort: string;
+  };
 }
 
 export class UserRegister {

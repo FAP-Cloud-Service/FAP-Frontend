@@ -19,7 +19,9 @@ export class UserService {
   performLogin(username: string, password: string): Observable<any> {
     const payload: UserLogin = {
       loginName: username,
-      passwort: password
+      passwort: {
+        passwort: password
+      }
     };
 
     return this.http.post<Session>('/api/login', payload, {
