@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FriendsService} from '../services/friends.service';
 
 @Component({
   selector: 'app-freunde',
@@ -7,9 +8,13 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class FreundeComponent implements OnInit {
   @Output() selectedPage = new EventEmitter<string>();
-  constructor() { }
+  constructor(private friendsService: FriendsService) { }
 
   ngOnInit(): void {
   }
-
+  getFriends(): void {
+    this.friendsService.getAllFriends().subscribe(
+      response => console.log(response)
+    );
+  }
 }
