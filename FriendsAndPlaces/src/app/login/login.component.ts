@@ -2,11 +2,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {RegisterComponent} from '../register/register.component';
-import {LoginService} from '../services/login.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Session } from '../interfaces/User';
 import { SessionService } from '../services/session.service';
-import { SessionSettings } from '../interfaces/session';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +24,7 @@ export class LoginComponent {
 
   constructor(
     public dialog: MatDialog,
-    private loginService: LoginService,
+    private userService: UserService,
     private snackBar: MatSnackBar,
     private sessionService: SessionService
   ) { }
@@ -59,13 +58,13 @@ export class LoginComponent {
   performLogin(): void {
     this.loading = true;
     this.loginForm.disable();
-    this.loginService.performLogin(
+    this.userService.performLogin(
       this.loginForm.controls.username.value,
       this.loginForm.controls.password.value
     ).subscribe(
       (result: string) => {
-        //TODO: Remove parse when backend delivers json object
-        let session: Session = JSON.parse(result)
+        // TODO: Remove parse when backend delivers json object
+        const session: Session = JSON.parse(result);
         this.sessionService.setSession(session, this.loginForm.controls.username.value);
         this.loading = false;
         this.loginForm.enable();
@@ -73,7 +72,7 @@ export class LoginComponent {
         this.sessionChanged.emit();
       },
       () => {
-        //TODO: Check for error type -> wrong username/pw
+        // TODO: Check for error type -> wrong username/pw
         this.loading = false;
         this.loginForm.enable();
         this.snackBar.open('Login nicht möglich', '', { duration: 5000 });

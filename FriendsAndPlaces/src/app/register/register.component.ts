@@ -1,14 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Observable, of, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { CountryService } from '../services/country.service';
 import {ZipcodeService} from '../services/zipcode.service';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {AbortDialogComponent} from '../abort-dialog/abort-dialog.component';
 import {UserRegister} from '../interfaces/User';
-import {RegisterService} from '../services/register.service';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
     private zipcodeService: ZipcodeService,
     private snackBar: MatSnackBar,
     public abortDialog: MatDialog,
-    private registerService: RegisterService)
+    private userService: UserService)
   { }
   // api calls
   submit(): void {
@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
       {adresse: contactFormControls.email.value}
     );
     console.log(payload);
-    this.registerService.performRegistartion(payload).subscribe(
+    this.userService.performRegistration(payload).subscribe(
       (response) => {
         this.snackBar.open('Der Benutzer "' + accountFormControls.username.value + '" wurde angelegt');
         this.dialogRef.close(accountFormControls.username.value);

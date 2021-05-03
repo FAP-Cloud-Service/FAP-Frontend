@@ -8,14 +8,19 @@ import { Session } from '../interfaces/User';
 })
 export class SessionService {
 
-  cookieName = 'FAP_Session_Settings';
-
   constructor(private cookieService: CookieService) { }
 
+  cookieName = 'FAP_Session_Settings';
+
+  private static isValidSession(session: SessionSettings): boolean {
+    // TODO: Implement when backend has possibility to validate session id
+    return true;
+  }
+
   getSessionIfExistsAndValid(): SessionSettings {
-    if(this.cookieService.check(this.cookieName)) {
+    if (this.cookieService.check(this.cookieName)) {
       const sessionSettings = this.getSession();
-      if(this.isValidSession(sessionSettings)) {
+      if (SessionService.isValidSession(sessionSettings)) {
         return sessionSettings;
       }
     }
@@ -44,20 +49,15 @@ export class SessionService {
     sessionSettings.createDate = new Date();
 
     // Set cookie expiration to 2 hours, the cookie will automatically be deleted after expiration
-    let expirationDate = new Date();
+    const expirationDate = new Date();
     expirationDate.setHours(expirationDate.getHours() + 2);
 
-    this.cookieService.set(this.cookieName, JSON.stringify(sessionSettings) ,expirationDate, undefined, undefined, true);
+    this.cookieService.set(this.cookieName, JSON.stringify(sessionSettings), expirationDate, undefined, undefined, true);
   }
 
   deleteSession(): void {
     if (this.cookieService.check(this.cookieName)) {
       this.cookieService.delete(this.cookieName);
     }
-  }
-
-  private isValidSession(session: SessionSettings): boolean {
-    //TODO: Implement when backend has possibility to validate session id
-    return true;
   }
 }

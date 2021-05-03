@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { API } from '../api.conf';
+import {Session, UserLogin, UserLogout, UserRegister} from '../interfaces/User';
 import {Observable, of} from 'rxjs';
-import {Session, UserLogin, UserLogout} from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class UserService {
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
   constructor(private http: HttpClient) {}
-
+  performRegistration(
+    payload: UserRegister
+  ): Observable<any> {
+    return this.http.post('/api/users/new', payload, this.httpOptions);
+  }
   performLogin(username: string, password: string): Observable<any> {
     const payload: UserLogin = {
       loginName: username,
@@ -35,9 +38,9 @@ export class LoginService {
     const payload: UserLogout = {
       loginName: username,
       sitzung: session.SessionId
-    }
+    };
     return this.http.post('/api/logout', payload, {
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+      headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
     });
   }
 }
