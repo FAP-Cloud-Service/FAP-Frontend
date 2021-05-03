@@ -62,8 +62,7 @@ export class LoginComponent {
       this.loginForm.controls.username.value,
       this.loginForm.controls.password.value
     ).subscribe(
-      (result) => {
-        const session: Session = result;
+      (session: Session) => {
         this.sessionService.setSession(session, this.loginForm.controls.username.value);
         this.loading = false;
         this.loginForm.enable();
