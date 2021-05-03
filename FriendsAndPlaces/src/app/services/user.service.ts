@@ -43,4 +43,7 @@ export class UserService {
       headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
     });
   }
+  checkUsernameAvailability(username: string): Observable<any> {
+    return this.http.get('/api/users/available?id=' + username);
+  }
 }
