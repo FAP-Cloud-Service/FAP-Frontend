@@ -4,7 +4,7 @@
 </button>
 <h1>{{heading}}</h1>
 <mat-progress-bar mode="indeterminate" [class.invisible]="! loading"></mat-progress-bar>
-<mat-horizontal-stepper #stepper id="stepper">
+<mat-horizontal-stepper #stepper id="stepper" linear>
   <mat-step [stepControl]="personalForm">
     <form [formGroup]="personalForm">
       <ng-template matStepLabel>Persönliche Daten</ng-template>
@@ -122,6 +122,7 @@
           <input matInput type="password" placeholder="Passwort wiederholen" autocomplete="new-password"
                  formControlName="passwordConfirm" required id="passwordRepeat">
         </mat-form-field>
+        <mat-error>{{ getPassowrdError() }}</mat-error>
       </div>
       <div style="margin-bottom: 20px">
         <mat-checkbox formControlName="termsOfService">Ich habe die <a href="https://www.google.com"
@@ -133,7 +134,7 @@
       <div>
         <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
         <button mat-stroked-button color="accent" matStepperNext class="right"
-                [disabled]="accountForm.invalid || loading" (click)="submit()">Account erstellen
+                [disabled]="accountForm.invalid || loading || passwordsNotEqual" (click)="submit()">Account erstellen
         </button>
       </div>
     </form>
