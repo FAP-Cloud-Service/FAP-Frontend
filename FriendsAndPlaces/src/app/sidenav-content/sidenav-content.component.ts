@@ -15,7 +15,7 @@ export class SidenavContentComponent {
 
   constructor() {  }
 
-  selectedPageChanged(value: string) {
+  selectedPageChanged(value: string): void {
     this.selectedPage.emit(value);
   }
 
