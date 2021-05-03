@@ -4,18 +4,21 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span>Friends and Places</span>
+    <span class="toolbar-spacer"></span>
+    <span *ngIf="selectedPage != 'login' && loggedIn && currentSession && currentSession.username != ''" class="toolbar-username-span">Hallo {{currentSession.username}}</span>
+    <button *ngIf="selectedPage != 'login'" mat-raised-button color="primary" (click)="logInOut()">{{ loggedIn ? 'Logout' : 'Login'}}</button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav">
     <mat-sidenav mode="over" [(opened)]="sidenavOpen">
-      <app-sidenav-content [loggedIn]="loggedIn" (selectedPage)="selectPage($event)"></app-sidenav-content>
+      <app-sidenav-content [loggedIn]="loggedIn" [selectPage]="selectedPage" (selectedPage)="selectPage($event)"></app-sidenav-content>
     </mat-sidenav>
     <mat-sidenav-content>
 
       <!-- Add main content components with logic for display here -->
 
-      <app-login *ngIf="selectedPage == 'login'"></app-login>
-      <app-start-page (selectedPage)="selectPage($event)" *ngIf="selectedPage == 'start'"></app-start-page>
+      <app-login *ngIf="selectedPage == 'login'" (sessionChanged)="sessionChanged()"></app-login>
+      <app-start-page *ngIf="selectedPage == 'start'" (selectedPage)="selectPage($event)"></app-start-page>
 
     </mat-sidenav-content>
   </mat-sidenav-container>

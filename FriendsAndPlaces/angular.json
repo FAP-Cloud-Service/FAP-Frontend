@@ -73,7 +73,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "FriendsAndPlaces:build:production"
+              "browserTarget": "FriendsAndPlaces:build:production",
+              "proxyConfig": "prod-proxy.conf.json"
             }
           }
         },

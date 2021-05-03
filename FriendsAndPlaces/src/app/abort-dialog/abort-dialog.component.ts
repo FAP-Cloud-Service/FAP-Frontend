@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -6,14 +6,12 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './abort-dialog.component.html',
   styleUrls: ['./abort-dialog.component.scss']
 })
-export class AbortDialogComponent implements OnInit {
+export class AbortDialogComponent {
 
   @Input() message?: string;
 
   constructor(public abortDialogRef: MatDialogRef<AbortDialogComponent>) { }
 
-  ngOnInit(): void {
-  }
   closeParentDialog(): void {
     this.abortDialogRef.close(true);
   }
