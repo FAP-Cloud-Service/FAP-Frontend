@@ -1,10 +1,10 @@
 <mat-card-title>Standort speichern</mat-card-title>
 <mat-card-subtitle>Deine Position für Freunde veröffentlichen</mat-card-subtitle>
 <mat-card-content>
-  <h2>Latitude: </h2>
-  <h2>Longitude: </h2>
+  <h2 *ngIf="latitude">Längengrad:  {{ latitude }}</h2>
+  <h2 *ngIf="longitude">Breitengrad: {{ longitude }}</h2>
 </mat-card-content>
 <mat-card-actions>
   <button mat-button color="warn" (click)="closeDialog()">Abbrechen</button>
-  <button mat-raised-button color="primary">Speichern</button>
+  <button mat-raised-button color="primary" (click)="getUserLocation()">Speichern</button>
 </mat-card-actions>

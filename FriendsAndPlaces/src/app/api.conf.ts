@@ -6,4 +6,5 @@ export const API = {
 export const API_LOCAL = {
   url: 'localhost:8080/api/',
   timeout: 5000
-}
+};
+

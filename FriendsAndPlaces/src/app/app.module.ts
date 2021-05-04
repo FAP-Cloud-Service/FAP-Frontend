@@ -17,6 +17,7 @@ import { LogoutVerificationComponent } from './logout-verification/logout-verifi
 import { FreundeComponent } from './friendslist/freunde.component';
 import { ErrorComponent } from './error/error.component';
 import { SaveLocationComponent } from './save-location/save-location.component';
+import {MapComponent} from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SaveLocationComponent } from './save-location/save-location.component';
     LogoutVerificationComponent,
     FreundeComponent,
     ErrorComponent,
-    SaveLocationComponent
+    SaveLocationComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

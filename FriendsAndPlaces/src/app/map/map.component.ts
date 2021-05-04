@@ -39,7 +39,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       center: [this.latitude, this.longitude],
       zoom: 12
     });
-    this.map.tap.disable();
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       minZoom: 3,
