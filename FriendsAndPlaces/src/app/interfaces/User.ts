@@ -1,5 +1,5 @@
 export class Session {
-  SessionId: string;
+  sessionId: string;
 }
 
 export class UserLogin {
