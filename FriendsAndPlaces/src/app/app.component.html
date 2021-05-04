@@ -1,12 +1,12 @@
 <div class="sidenav-format-container">
-  <mat-toolbar color="accent">
+  <mat-toolbar color="primary">
     <button mat-icon-button class="menu-button" (click)="sidenavOpen = !sidenavOpen">
       <mat-icon>menu</mat-icon>
     </button>
     <span>Friends and Places</span>
     <span class="toolbar-spacer"></span>
     <span *ngIf="selectedPage != 'login' && loggedIn && currentSession && currentSession.username != ''" class="toolbar-username-span">Hallo {{currentSession.username}}</span>
-    <button *ngIf="selectedPage != 'login'" mat-raised-button color="primary" (click)="logInOut()">{{ loggedIn ? 'Logout' : 'Login'}}</button>
+    <button *ngIf="selectedPage != 'login'" mat-raised-button color="foreground" (click)="logInOut()">{{ loggedIn ? 'Logout' : 'Login'}}</button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav">

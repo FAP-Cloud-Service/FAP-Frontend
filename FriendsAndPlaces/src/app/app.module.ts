@@ -15,6 +15,7 @@ import { AbortDialogComponent } from './abort-dialog/abort-dialog.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LogoutVerificationComponent } from './logout-verification/logout-verification.component';
 import { FreundeComponent } from './friendslist/freunde.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FreundeComponent } from './friendslist/freunde.component';
     RegisterComponent,
     AbortDialogComponent,
     LogoutVerificationComponent,
-    FreundeComponent
+    FreundeComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

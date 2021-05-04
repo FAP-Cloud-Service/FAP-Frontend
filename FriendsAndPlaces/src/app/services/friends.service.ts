@@ -10,8 +10,7 @@ export class FriendsService {
   constructor(private sessionService: SessionService, private httpClient: HttpClient) { }
   getAllFriends(): Observable<any> {
     const session = this.sessionService.getSessionIfExistsAndValid();
-    console.log(session.session.SessionId);
-    return this.httpClient.get('/api/users?session=' + session,
+    return this.httpClient.get('/api/users?login=' + session.username + '&session=' + session.session.sessionId,
       {headers: {Accept: 'application/json'}});
   }
 }
