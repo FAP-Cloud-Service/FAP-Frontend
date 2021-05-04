@@ -39,7 +39,7 @@ export class UserService {
   performLogout(username: string, session: Session): Observable<any> {
     const payload: UserLogout = {
       loginName: username,
-      sitzung: session.SessionId
+      sitzung: session.sessionId
     };
     return this.http.post('/api/logout', payload, {
       headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
