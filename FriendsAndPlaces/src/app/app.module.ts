@@ -16,6 +16,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LogoutVerificationComponent } from './logout-verification/logout-verification.component';
 import { FreundeComponent } from './friendslist/freunde.component';
 import { ErrorComponent } from './error/error.component';
+import { SaveLocationComponent } from './save-location/save-location.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ErrorComponent } from './error/error.component';
     AbortDialogComponent,
     LogoutVerificationComponent,
     FreundeComponent,
-    ErrorComponent
+    ErrorComponent,
+    SaveLocationComponent
   ],
   imports: [
     BrowserModule,
