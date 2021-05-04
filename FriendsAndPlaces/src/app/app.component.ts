@@ -27,7 +27,7 @@ export class AppComponent {
     private dialog: MatDialog
   ) {
     const sess = this.sessionService.getSessionIfExistsAndValid();
-    if (sess.session && sess.session.SessionId !== '') {
+    if (sess.session && sess.session.sessionId !== '') {
       this.loggedIn = true;
       this.currentSession = sess;
     }
