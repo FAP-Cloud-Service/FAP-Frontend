@@ -14,6 +14,11 @@ import {RegisterComponent} from './register/register.component';
 import { AbortDialogComponent } from './abort-dialog/abort-dialog.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LogoutVerificationComponent } from './logout-verification/logout-verification.component';
+import { FreundeComponent } from './friendslist/freunde.component';
+import { ErrorComponent } from './error/error.component';
+import { SaveLocationComponent } from './save-location/save-location.component';
+import {MapComponent} from './map/map.component';
+import { FriendsDetailComponent } from './friends-detail/friends-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,12 @@ import { LogoutVerificationComponent } from './logout-verification/logout-verifi
     LoginComponent,
     RegisterComponent,
     AbortDialogComponent,
-    LogoutVerificationComponent
+    LogoutVerificationComponent,
+    FreundeComponent,
+    ErrorComponent,
+    SaveLocationComponent,
+    MapComponent,
+    FriendsDetailComponent
   ],
   imports: [
     BrowserModule,

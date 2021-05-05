@@ -1,0 +1,12 @@
+<mat-list *ngIf="querySuccessful">
+  <mat-list-item>Breitengrad: {{latitude}}</mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>Längengrad: {{longitude}}</mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>Stalingrad: </mat-list-item>
+</mat-list>
+<p style="text-align: center" *ngIf="!(querySuccessful) && !(loading)">Keine Daten vorhanden</p>
+<div class="loading" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+  <p style="text-align: center">Lade Standort...</p>
+</div>

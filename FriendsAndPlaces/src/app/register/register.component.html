@@ -22,7 +22,7 @@
         </mat-form-field>
       </div>
       <div>
-        <button mat-stroked-button color="accent" matStepperNext class="right"
+        <button mat-stroked-button color="primary" matStepperNext class="right"
                 [disabled]="personalForm.invalid">Nächste Seite
         </button>
       </div>
@@ -68,8 +68,8 @@
         </mat-form-field>
       </div>
       <div>
-        <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
-        <button mat-stroked-button color="accent" matStepperNext class="right"
+        <button mat-stroked-button color="primary" matStepperPrevious class="left">Zurück</button>
+        <button mat-stroked-button color="primary" matStepperNext class="right"
                 [disabled]="addressForm.invalid">Nächste Seite
         </button>
       </div>
@@ -93,8 +93,8 @@
         </mat-form-field>
       </div>
       <div>
-        <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
-        <button mat-stroked-button color="accent" matStepperNext class="right"
+        <button mat-stroked-button color="primary" matStepperPrevious class="left">Zurück</button>
+        <button mat-stroked-button color="primary" matStepperNext class="right"
                 [disabled]="contactForm.invalid">Nächste Seite
         </button>
       </div>
@@ -108,7 +108,7 @@
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Benutzername</mat-label>
           <input matInput type="text" placeholder="UserName" formControlName="username" #username autocomplete="username"
-                 maxlength="10" required id="username">
+                 maxlength="10" required id="username" (focusout)="checkUsernameAvailability()">
           <mat-hint>{{username.value?.length || 0}}/10</mat-hint>
           <mat-error>{{getValidationError(accountForm.controls.username, 'pattern', 'Der eingegebene Benutzername enthällt Leerzeichen')}}</mat-error>
         </mat-form-field>
@@ -122,7 +122,7 @@
           <input matInput type="password" placeholder="Passwort wiederholen" autocomplete="new-password"
                  formControlName="passwordConfirm" required id="passwordRepeat">
         </mat-form-field>
-        <mat-error>{{ getPassowrdError() }}</mat-error>
+        <mat-error>{{ getPasswordError() }}</mat-error>
       </div>
       <div style="margin-bottom: 20px">
         <mat-checkbox formControlName="termsOfService">Ich habe die <a href="https://www.google.com"
@@ -132,8 +132,8 @@
         </mat-checkbox>
       </div>
       <div>
-        <button mat-stroked-button color="accent" matStepperPrevious class="left">Zurück</button>
-        <button mat-stroked-button color="accent" matStepperNext class="right"
+        <button mat-stroked-button color="primary" matStepperPrevious class="left">Zurück</button>
+        <button mat-stroked-button color="primary" matStepperNext class="right"
                 [disabled]="accountForm.invalid || loading || passwordsNotEqual" (click)="submit()">Account erstellen
         </button>
       </div>

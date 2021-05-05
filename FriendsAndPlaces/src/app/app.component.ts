@@ -26,9 +26,8 @@ export class AppComponent {
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {
-    console.log('Checking for existing session...');
     const sess = this.sessionService.getSessionIfExistsAndValid();
-    if (sess.session && sess.session.SessionId !== '') {
+    if (sess.session && sess.session.sessionId !== '') {
       this.loggedIn = true;
       this.currentSession = sess;
     }

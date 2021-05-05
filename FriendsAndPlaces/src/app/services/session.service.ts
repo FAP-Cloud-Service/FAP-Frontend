@@ -32,7 +32,7 @@ export class SessionService {
       const cookieContent = this.cookieService.get(this.cookieName);
       const sessionSettings: SessionSettings = JSON.parse(cookieContent);
       // Decode sessionId/username in base64
-      sessionSettings.session.SessionId = atob(sessionSettings.session.SessionId);
+      sessionSettings.session.sessionId = atob(sessionSettings.session.sessionId);
       sessionSettings.username = atob(sessionSettings.username);
       return sessionSettings;
     }
@@ -44,7 +44,7 @@ export class SessionService {
     sessionSettings.session = session;
 
     // Encode sessionId/username in base64
-    sessionSettings.session.SessionId = btoa(session.SessionId);
+    sessionSettings.session.sessionId = btoa(session.sessionId);
     sessionSettings.username = btoa(username);
     sessionSettings.createDate = new Date();
 
