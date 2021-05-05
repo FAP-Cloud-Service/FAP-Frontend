@@ -1,10 +1,25 @@
+<mat-progress-bar mode="indeterminate" [class.disabled]="!loading" class="loadingbar"></mat-progress-bar>
 <mat-card-title>Standort speichern</mat-card-title>
 <mat-card-subtitle>Deine Position für Freunde veröffentlichen</mat-card-subtitle>
 <mat-card-content>
-  <h2 *ngIf="latitude">Längengrad:  {{ latitude }}</h2>
-  <h2 *ngIf="longitude">Breitengrad: {{ longitude }}</h2>
+  <form [formGroup]="positionForm">
+    <mat-form-field>
+      <mat-label>Längengrad</mat-label>
+      <input matInput placeholder="Längengrad" formControlName="latitude">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Breitengrad</mat-label>
+      <input matInput placeholder="Breitengrad" formControlName="longitude">
+    </mat-form-field>
+    <button mat-icon-button color="primary" type="button" (click)="changeFormState()"
+    matTooltip="Dein Standort wurde automatisch ermittelt. Du kannst die Koordinaten aber anpassen, wenn du möchtest">
+      <mat-icon *ngIf="positionForm.disabled">edit</mat-icon>
+      <mat-icon *ngIf="positionForm.enabled">lock</mat-icon>
+    </button>
+  </form>
 </mat-card-content>
 <mat-card-actions>
   <button mat-button color="warn" (click)="closeDialog()">Abbrechen</button>
-  <button mat-raised-button color="primary" (click)="getUserLocation()">Speichern</button>
+  <button mat-raised-button color="primary" (click)="submitLocation()" [disabled]="positionForm.invalid || loading">Speichern</button>
 </mat-card-actions>
