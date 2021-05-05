@@ -1,0 +1,27 @@
+<div class="content">
+  <mat-card *ngIf="!errorOccurred">
+    <mat-card-title>Hier sind deine Freunde</mat-card-title>
+    <mat-card-subtitle>und ihre Standorte</mat-card-subtitle>
+    <button mat-raised-button color="primary" (click)="openLocationDialog()">Standort speichern</button>
+    <mat-card-content>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let friend of friendList">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{friend.vorname}} {{friend.nachname}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <app-friends-detail [username]="friend.loginName"></app-friends-detail>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div class="content" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+        <p class="loading-description">Lade Freunde...</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<app-error *ngIf="errorOccurred" (reload)="getFriends()"></app-error>

@@ -77,7 +77,6 @@ export class RegisterComponent implements OnInit {
       contactFormControls.mobile.value,
       {adresse: contactFormControls.email.value}
     );
-    console.log(payload);
     this.userService.performRegistration(payload).subscribe(
       (response) => {
         this.snackBar.open('Der Benutzer "' + accountFormControls.username.value + '" wurde angelegt');
@@ -89,7 +88,11 @@ export class RegisterComponent implements OnInit {
         this.accountForm.enable();
         this.contactForm.enable();
         this.personalForm.enable();
-        this.snackBar.open('Der benutzer konnte nicht angelegt werden. Fehlercode ' + error.status);
+        if (error.status === 400) {
+          this.snackBar.open('Der Benutzer existiert bereits');
+        } else {
+          this.snackBar.open('Der Benutzer konnte nicht angelegt werden oder der Server ist offline');
+        }
       },
       () => {}
   );
@@ -158,12 +161,23 @@ export class RegisterComponent implements OnInit {
     }
     return formControlName.hasError(errorType) ? message : '';
   }
-  getPassowrdError(): string | null {
+  getPasswordError(): string | null {
     if (this.accountForm.controls.password.value !== this.accountForm.controls.passwordConfirm.value) {
       this.passwordsNotEqual = true;
       return 'Die eingegebenen Passwörter stimmen nicht überein';
     }
     this.passwordsNotEqual = false;
     return null;
+  }
+  checkUsernameAvailability(): void {
+    this.userService.checkUsernameAvailability(this.accountForm.controls.username.value).subscribe(
+      (res) => {
+        console.log(res.ergebnis);
+        if (!res.ergebnis) {
+          this.snackBar.open('Dieser Benutzername ist nicht verfügbar');
+          this.accountForm.controls.username.setErrors(Validators.required);
+        }
+      }
+    );
   }
 }

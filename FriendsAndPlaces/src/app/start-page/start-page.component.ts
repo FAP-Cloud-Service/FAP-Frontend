@@ -11,7 +11,7 @@ export class StartPageComponent {
 
   constructor() { }
 
-  goToLoginPage() {
+  goToLoginPage(): void {
     this.selectedPage.emit('login');
   }
 

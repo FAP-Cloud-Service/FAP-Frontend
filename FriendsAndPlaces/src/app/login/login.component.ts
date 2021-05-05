@@ -62,9 +62,7 @@ export class LoginComponent {
       this.loginForm.controls.username.value,
       this.loginForm.controls.password.value
     ).subscribe(
-      (result: string) => {
-        // TODO: Remove parse when backend delivers json object
-        const session: Session = JSON.parse(result);
+      (session: Session) => {
         this.sessionService.setSession(session, this.loginForm.controls.username.value);
         this.loading = false;
         this.loginForm.enable();

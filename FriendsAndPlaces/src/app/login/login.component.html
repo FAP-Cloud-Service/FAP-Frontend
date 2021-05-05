@@ -19,8 +19,8 @@
     </mat-form-field>
   </p>
   <div class="button-row">
-    <mat-progress-bar mode="query" style="width: 50%" color="accent" [class.invisible]="! loading"></mat-progress-bar>
-    <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid || loading" (click)="performLogin()">Anmelden</button>
-    <button mat-stroked-button color="accent" type="button" (click)="openRegisterDialog()" [disabled]="loading">Registrieren</button>
+    <mat-progress-bar mode="query" style="width: 50%" color="primary" [class.invisible]="! loading"></mat-progress-bar>
+    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading" (click)="performLogin()">Anmelden</button>
+    <button mat-stroked-button color="primary" type="button" (click)="openRegisterDialog()" [disabled]="loading">Registrieren</button>
   </div>
 </form>

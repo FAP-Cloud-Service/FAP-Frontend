@@ -19,7 +19,9 @@ export class UserService {
   performLogin(username: string, password: string): Observable<any> {
     const payload: UserLogin = {
       loginName: username,
-      passwort: password
+      passwort: {
+        passwort: password
+      }
     };
 
     return this.http.post<Session>('/api/login', payload, {
@@ -37,10 +39,13 @@ export class UserService {
   performLogout(username: string, session: Session): Observable<any> {
     const payload: UserLogout = {
       loginName: username,
-      sitzung: session.SessionId
+      sitzung: session.sessionId
     };
     return this.http.post('/api/logout', payload, {
       headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
     });
+  }
+  checkUsernameAvailability(username: string): Observable<any> {
+    return this.http.get('/api/users/available?id=' + username);
   }
 }
