@@ -6,3 +6,8 @@ export interface Location {
     breitengrad: number;
   };
 }
+
+export interface FriendLocation {
+  breitengrad: number;
+  laengengrad: number;
+}

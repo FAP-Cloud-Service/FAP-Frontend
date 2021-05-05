@@ -10,10 +10,10 @@
             <mat-panel-title>
               {{friend.vorname}} {{friend.nachname}}
             </mat-panel-title>
-            <mat-panel-description>
-              Hier könnte seine Position stehen
-            </mat-panel-description>
           </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <app-friends-detail [username]="friend.loginName"></app-friends-detail>
+          </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
       <div class="content" *ngIf="loading">

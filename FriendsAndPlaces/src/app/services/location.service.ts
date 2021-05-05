@@ -30,8 +30,8 @@ export class LocationService {
     const loggedInUsername = session.username;
     const sessionId = session.session.sessionId;
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ Accept: 'application/json' })
     };
-    return this.httpClient.get('/api/getlocation?login=' + loggedInUsername + '&session=' + sessionId + '&id=' + username, httpOptions);
+    return this.httpClient.get('/api/location?login=' + loggedInUsername + '&session=' + sessionId + '&id=' + username, httpOptions);
   }
 }
