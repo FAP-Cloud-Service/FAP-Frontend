@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
-import { Location } from "../interfaces/location";
-import {SessionService} from "./session.service";
-import {Observable} from "rxjs";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Location} from '../interfaces/location';
+import {SessionService} from './session.service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +24,14 @@ export class LocationService {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
     return this.httpClient.put('/api/setlocation', payload, httpOptions);
+  }
+  getLocationByUser(username: string): Observable<any> {
+    const session = this.sessionService.getSessionIfExistsAndValid();
+    const loggedInUsername = session.username;
+    const sessionId = session.session.sessionId;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.httpClient.get('/api/getlocation?login=' + loggedInUsername + '&session=' + sessionId + '&id=' + username, httpOptions);
   }
 }
