@@ -4,14 +4,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  margin: 30px;
+  margin: 50px;
 }
 
 .map-frame {
-  border: 2px solid black;
   height: 100%;
 }
 
-#map {
+[id^=map] {
   height: 100%;
 }

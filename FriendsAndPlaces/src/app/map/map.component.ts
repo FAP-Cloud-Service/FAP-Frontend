@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output, Input, AfterViewInit} from '@angular/core';
 import * as L from 'leaflet';
 
+
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -29,16 +30,19 @@ export class MapComponent implements OnInit, AfterViewInit {
   @Output() selectedPage = new EventEmitter<string>();
 
   map: any;
+  id: any;
   @Input() latitude: number;
   @Input() longitude: number;
   @Input() name: string;
 
 
   private initMap(): void {
-    this.map = L.map('map', {
+    console.log('map' + this.id);
+    this.map = L.map('map' + this.id, {
       center: [this.latitude, this.longitude],
       zoom: 12
     });
+
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       minZoom: 3,
@@ -53,10 +57,15 @@ export class MapComponent implements OnInit, AfterViewInit {
     marker.bindPopup(popUpHtml);
     marker.addTo(this.map);
 
+    if (navigator.userAgent.indexOf('Safari') !== -1){
+      // fix only relevant for safari
+      this.map.tap.disable();
+    }
   }
 
 
   ngOnInit(): void {
+    this.id = Date.now();
   }
 
   ngAfterViewInit(): void {

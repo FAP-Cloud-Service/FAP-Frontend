@@ -3,6 +3,7 @@ import {LocationService} from '../services/location.service';
 import {FriendLocation} from '../interfaces/location';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Friend} from '../interfaces/friends';
+import {MapComponent} from '../map/map.component';
 
 @Component({
   selector: 'app-friends-detail',
