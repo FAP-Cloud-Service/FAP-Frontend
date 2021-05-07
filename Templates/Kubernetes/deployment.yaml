@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: fap-frontend
-          image: onnythunder/fap-frontend:latest
+          image: onnythunder/fap-frontend:v3
           ports:
             - containerPort: 80
 
@@ -37,13 +37,12 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
+  name: nginx-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-  name: nginx-ingress
 spec:
   rules:
-    - host: fap.huemmelinkcloud.de
-      http:
+    - http:
         paths:
           - backend:
               serviceName: network-service
