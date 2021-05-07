@@ -1,5 +1,7 @@
 import {Component, EventEmitter, OnInit, Output, Input, AfterViewInit} from '@angular/core';
 import * as L from 'leaflet';
+import { detect } from 'detect-browser';
+import {MapService} from '../services/map.service';
 
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -24,7 +26,7 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class MapComponent implements OnInit, AfterViewInit {
 
-  constructor(  ) {
+  constructor( private mapService: MapService ) {
   }
 
   @Output() selectedPage = new EventEmitter<string>();
@@ -38,17 +40,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   private initMap(): void {
     console.log('map' + this.id);
-    this.map = L.map('map' + this.id, {
-      center: [this.latitude, this.longitude],
-      zoom: 12
-    });
-
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      minZoom: 3,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
-    tiles.addTo(this.map);
+    this.map = this.mapService.getMap('map' + this.id, this.latitude, this.longitude, 15);
 
     const marker = L.marker([this.latitude, this.longitude]);
     const popUpHtml = `<div>Name: ${this.name}</div>` +
@@ -56,11 +48,14 @@ export class MapComponent implements OnInit, AfterViewInit {
       `<div>Latitude: ${this.latitude}</div>`;
     marker.bindPopup(popUpHtml);
     marker.addTo(this.map);
+    const markers = [marker];
+    const group = L.featureGroup(markers);
 
-    if (navigator.userAgent.indexOf('Safari') !== -1){
-      // fix only relevant for safari
-      this.map.tap.disable();
-    }
+    this.map.on('load', (() => { setTimeout(() => {
+      this.map.invalidateSize();
+    }, 1); }));
+    this.map.setView([this.latitude, this.longitude], 15);
+
   }
 
 

@@ -20,7 +20,6 @@ export class FreundeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFriends();
-    console.log(this.friendList);
   }
   getFriends(): void {
     this.loading = true;
