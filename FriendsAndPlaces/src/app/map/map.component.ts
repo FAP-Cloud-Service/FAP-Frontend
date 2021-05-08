@@ -36,7 +36,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   @Input() latitude: number;
   @Input() longitude: number;
   @Input() name: string;
-
+  @Input() isSingleFriend: boolean = false;
 
   private initMap(): void {
     console.log('map' + this.id);

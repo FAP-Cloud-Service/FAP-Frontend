@@ -1,5 +1,5 @@
 <div class="map" *ngIf="querySuccessful">
-  <app-map *ngIf="querySuccessful" [latitude]="latitude" [longitude]="longitude" [name]="username" >
+  <app-map *ngIf="querySuccessful" [latitude]="latitude" [longitude]="longitude" [name]="username" [isSingleFriend]="true">
   </app-map></div>
 <p style="text-align: center" *ngIf="!(querySuccessful) && !(loading)">Keine Daten vorhanden</p>
 <div class="loading" *ngIf="loading">
