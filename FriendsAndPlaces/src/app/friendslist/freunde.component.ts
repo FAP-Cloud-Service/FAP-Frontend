@@ -4,6 +4,7 @@ import {Friend, FriendList} from '../interfaces/friends';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {SaveLocationComponent} from '../save-location/save-location.component';
+import { DisplayNamePipe } from '../pipes/display-name.pipe';
 
 @Component({
   selector: 'app-freunde',
@@ -16,7 +17,11 @@ export class FreundeComponent implements OnInit {
   friendList: [Friend];
   loading = true;
   errorOccurred = false;
-  constructor(private friendsService: FriendsService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
+  constructor(
+    private friendsService: FriendsService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private displayNamePipe: DisplayNamePipe) { }
 
   ngOnInit(): void {
     this.getFriends();
@@ -26,6 +31,9 @@ export class FreundeComponent implements OnInit {
     this.errorOccurred = false;
     this.friendsService.getAllFriends().subscribe(
       (response: FriendList) => {
+        response.benutzerliste.forEach(user => {
+          user.displayname = this.displayNamePipe.transform(user);
+        });
         this.friendList = response.benutzerliste;
         this.loading = false;
       },
