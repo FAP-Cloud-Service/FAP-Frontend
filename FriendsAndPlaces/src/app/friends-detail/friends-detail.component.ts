@@ -9,6 +9,7 @@ import {FriendLocation} from '../interfaces/location';
 })
 export class FriendsDetailComponent implements OnInit {
   @Input() username: string;
+  @Input() displayname: string;
   latitude: number;
   longitude: number;
   querySuccessful: boolean;
