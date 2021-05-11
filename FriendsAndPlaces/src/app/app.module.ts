@@ -19,6 +19,8 @@ import { ErrorComponent } from './error/error.component';
 import { SaveLocationComponent } from './save-location/save-location.component';
 import {MapComponent} from './map/map.component';
 import { FriendsDetailComponent } from './friends-detail/friends-detail.component';
+import { FriendsmapComponent } from './friendsmap/friendsmap.component';
+import { DisplayNamePipe } from './pipes/display-name.pipe';
 import { IntroductionComponent } from './introduction/introduction.component';
 
 @NgModule({
@@ -35,6 +37,8 @@ import { IntroductionComponent } from './introduction/introduction.component';
     SaveLocationComponent,
     MapComponent,
     FriendsDetailComponent,
+    FriendsmapComponent,
+    DisplayNamePipe,
     IntroductionComponent
   ],
   imports: [
@@ -44,7 +48,10 @@ import { IntroductionComponent } from './introduction/introduction.component';
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    DisplayNamePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
