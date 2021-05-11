@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {LocationService} from '../services/location.service';
 import {FriendLocation} from '../interfaces/location';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Friend} from '../interfaces/friends';
 
 @Component({
   selector: 'app-friends-detail',
@@ -11,6 +9,7 @@ import {Friend} from '../interfaces/friends';
 })
 export class FriendsDetailComponent implements OnInit {
   @Input() username: string;
+  @Input() displayname: string;
   latitude: number;
   longitude: number;
   querySuccessful: boolean;

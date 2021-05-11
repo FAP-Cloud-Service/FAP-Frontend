@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fap-frontend-deployment
+  labels:
+    app: fap-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fap-frontend
+  template:
+    metadata:
+      labels:
+        app: fap-frontend
+    spec:
+      containers:
+        - name: fap-frontend
+          image: onnythunder/fap-frontend:v3
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: network-service
+spec:
+  selector:
+    app: fap-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+    - hosts:
+        - fap.huemmelinkcloud.de
+      secretName: echo-tls
+  rules:
+    - host: fap.huemmelinkcloud.de
+      http:
+        paths:
+          - backend:
+              serviceName: network-service
+              servicePort: 80
+            path: /

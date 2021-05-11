@@ -15,8 +15,8 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <app-login *ngIf="selectedPage == 'login'" (sessionChanged)="sessionChanged()"></app-login>
-      <app-start-page *ngIf="selectedPage == 'start'" (selectedPage)="selectPage($event)"></app-start-page>
-      <app-map *ngIf="selectedPage == 'friendsmap'" (selectedPage)="selectPage($event)"></app-map>
+      <app-start-page *ngIf="selectedPage == 'start'" (selectedPage)="selectPage($event)" [loggedIn]="loggedIn"></app-start-page>
+      <app-friendsmap  *ngIf="selectedPage == 'friendsmap'" (selectedPage)="selectPage($event)"></app-friendsmap>
       <app-freunde *ngIf="selectedPage =='friendslist'" (selectedPage)="selectPage($event)"></app-freunde>
     </mat-sidenav-content>
   </mat-sidenav-container>

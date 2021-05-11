@@ -13,7 +13,7 @@ import {UserService} from '../services/user.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
+  registerDialogOpen = false;
   loading = false;
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.pattern(/^[\S]+$/)]),
@@ -44,6 +44,7 @@ export class LoginComponent {
   }
 
   openRegisterDialog(): void {
+    this.registerDialogOpen = true;
     const registerDialog = this.dialog.open(RegisterComponent, {
       disableClose: true,
       hasBackdrop: true,
@@ -51,7 +52,10 @@ export class LoginComponent {
       restoreFocus: true
     });
     registerDialog.afterClosed().subscribe(
-      data => this.loginForm.controls.username.setValue(data)
+      (data) => {
+        this.registerDialogOpen = false;
+        this.loginForm.controls.username.setValue(data);
+      }
     );
   }
 

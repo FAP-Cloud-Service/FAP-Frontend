@@ -1,26 +1,34 @@
-<div class="logo-box">
-  <img src="https://cdn.pixabay.com/photo/2018/01/31/05/43/web-3120321_960_720.png" style="max-width: 250px;">
-  <h2>Friends and Places</h2>
+<div class="background-image" [class.blur]="registerDialogOpen">
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-subtitle>Willkommen bei Friends & Places</mat-card-subtitle>
+    <form [formGroup]="loginForm">
+      <p>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Gib deinen Benutzernamen ein</mat-label>
+          <input matInput placeholder="Benutzername" formControlName="username" required>
+          <mat-error *ngIf="loginForm.controls.username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill" class="wide-input">
+          <mat-label>Gib deine Passwort ein</mat-label>
+          <input matInput type="password" placeholder="Passwort" formControlName="password" required>
+          <mat-error *ngIf="loginForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </p>
+      <div class="button-row">
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading"
+                (click)="performLogin()">Anmelden
+        </button>
+        <button mat-stroked-button color="primary" type="button" (click)="openRegisterDialog()" [disabled]="loading">
+          Registrieren
+        </button>
+      </div>
+    </form>
+    <mat-progress-bar mode="query" color="primary" [class.invisible]="! loading"></mat-progress-bar>
+  </mat-card>
 </div>
-<form [formGroup]="loginForm">
-  <h1>Login</h1>
-  <p>
-    <mat-form-field appearance="fill" class="wide-input">
-      <mat-label>Gib deinen Benutzernamen ein</mat-label>
-      <input matInput placeholder="Benutzername" formControlName="username" required>
-      <mat-error *ngIf="loginForm.controls.username.invalid">{{getUsernameErrorMessage()}}</mat-error>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill" class="wide-input">
-      <mat-label>Gib deine Passwort ein</mat-label>
-      <input matInput type="password" placeholder="Passwort" formControlName="password" required>
-      <mat-error *ngIf="loginForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
-    </mat-form-field>
-  </p>
-  <div class="button-row">
-    <mat-progress-bar mode="query" style="width: 50%" color="primary" [class.invisible]="! loading"></mat-progress-bar>
-    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading" (click)="performLogin()">Anmelden</button>
-    <button mat-stroked-button color="primary" type="button" (click)="openRegisterDialog()" [disabled]="loading">Registrieren</button>
-  </div>
-</form>
+
+
+

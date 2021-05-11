@@ -8,11 +8,11 @@
         <mat-expansion-panel *ngFor="let friend of friendList">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              {{friend.vorname}} {{friend.nachname}}
+              {{friend.vorname}} {{friend.nachname}} ({{friend.loginName}})
             </mat-panel-title>
           </mat-expansion-panel-header>
           <ng-template matExpansionPanelContent>
-            <app-friends-detail [username]="friend.loginName"></app-friends-detail>
+            <app-friends-detail [username]="friend.loginName" [displayname]="friend.displayname"></app-friends-detail>
           </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
