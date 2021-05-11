@@ -19,6 +19,7 @@ import { ErrorComponent } from './error/error.component';
 import { SaveLocationComponent } from './save-location/save-location.component';
 import {MapComponent} from './map/map.component';
 import { FriendsDetailComponent } from './friends-detail/friends-detail.component';
+import { IntroductionComponent } from './introduction/introduction.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FriendsDetailComponent } from './friends-detail/friends-detail.componen
     ErrorComponent,
     SaveLocationComponent,
     MapComponent,
-    FriendsDetailComponent
+    FriendsDetailComponent,
+    IntroductionComponent
   ],
   imports: [
     BrowserModule,
