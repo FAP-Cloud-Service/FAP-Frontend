@@ -1,43 +1,33 @@
-form {
-  margin: 4rem auto;
-  width: 50%;
-}
-
 .wide-input {
   width: 100%;
 }
-
 button {
-  width: 50%;
-  text-align: center;
-}
-
-.logo-box {
-  max-width: 150px;
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-}
-
-.logo-box {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 20%;
-  max-height: 20%;
-  text-align: center;
-}
-.logo-box img{
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 20%;
-  max-height: 20%;
-  text-align: center;
-}
-
-h3 {
-  text-align: center;
+  width: 100%;
+  margin: 12px auto;
+  display: block;
 }
 
 .invisible {
   display: none;
+}
+
+mat-card {
+  max-width: 300px;
+  margin: 0 auto;
+  top: 250px;
+}
+
+.background-image {
+  background: url("../../assets/login-background.jpg") no-repeat center center fixed;
+  height: 100%;
+  width: 100%;
+  transition: filter .5s;
+}
+
+.blur {
+  filter: blur(15px);
+}
+
+.mat-card-subtitle {
+  margin-bottom: 24px;
 }
