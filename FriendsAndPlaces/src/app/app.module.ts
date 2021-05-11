@@ -21,6 +21,7 @@ import {MapComponent} from './map/map.component';
 import { FriendsDetailComponent } from './friends-detail/friends-detail.component';
 import { FriendsmapComponent } from './friendsmap/friendsmap.component';
 import { DisplayNamePipe } from './pipes/display-name.pipe';
+import { IntroductionComponent } from './introduction/introduction.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DisplayNamePipe } from './pipes/display-name.pipe';
     MapComponent,
     FriendsDetailComponent,
     FriendsmapComponent,
-    DisplayNamePipe
+    DisplayNamePipe,
+    IntroductionComponent
   ],
   imports: [
     BrowserModule,

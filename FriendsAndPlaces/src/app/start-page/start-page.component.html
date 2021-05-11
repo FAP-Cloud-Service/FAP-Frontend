@@ -1,11 +1,74 @@
-<div class="start-page__container">
-  <div class="mat-display-4 start-page__heading"> Willkommen bei Friends and Places </div>
-  <div class="mat-display-2 start-page__slogan"> Dein Ort, sie Alle zu finden!</div>
+<div class="background-image" [class.blur-backdrop]="registerDialogOpen">
+<div class="heading-container">
+  <h1>Willkommen bei Friends & Places</h1>
+  <mat-card *ngIf="loggedIn" class="mat-card-loggedin">
+    <mat-card-title>
+      Du bist angemeldet
+    </mat-card-title>
+    <mat-card-content>
+      <img src="../../assets/login-conf.svg" alt="Login erfolgreich" class="confirm-image">
+      <p>
+        Du kannst über die Sidebar die verschiedenen Funktionen der Website auswählen, oder klicke
+        einfach hier
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button>Freunde finden</button>
+      <button mat-flat-button>Hilfe</button>
+      <button mat-button color="warn">Ausloggen</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
 
-  <div class="start-page__content-container">
-    <div class="start-page__content-container__login">
-      <div class="mat-h2"> Starte jetzt, indem du dich einloggst und finde heraus, wo sich deine Freunde gerade befinden!</div>
-    </div>
-    <img class="start-page__content-container__image" src="https://cdn.pixabay.com/photo/2018/01/31/05/43/web-3120321_960_720.png">
-  </div>
+<div *ngIf="!loggedIn">
+  <mat-grid-list cols="3">
+    <mat-grid-tile>
+      <mat-card class="mat-card-not-loggedin">
+        <mat-card-title>
+          Verbunden
+        </mat-card-title>
+        <mat-card-content>
+          <img src="../../assets/connected.svg" alt="advantages: map" class="confirm-image">
+          <p>
+            Mit <b>Friends & Places</b> kannst du deinen Standort mit anderen Benutzern teilen. Dadurch bist du immer auf dem laufenden, wo sich deine Freunde gerade aufhalten
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="mat-card-not-loggedin">
+        <mat-card-title>
+          Kostenlos
+        </mat-card-title>
+        <mat-card-content>
+          <img src="../../assets/free.svg" alt="Login erfolgreich" class="confirm-image">
+          <p>
+            <b>Friends & Places</b> stellen wir dir ganz ohne Werbung und ohne zusätzliche kosten zur Verfügung. Erstelle einfach einen Account
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Optionen</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="mat-card-not-loggedin">
+        <mat-card-title>
+          Privat
+        </mat-card-title>
+        <mat-card-content>
+          <img src="../../assets/privacy.svg" alt="Login erfolgreich" class="confirm-image">
+          <p>
+            Wir geben deine Daten nicht an Dritte weiter. Melde dich einfach an und du kannst die Standorte aller anderen Benutzer auf einen Blick sehen
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+   <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-flat-button (click)="openRegisterDialog()">Registrieren</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<img src="../../assets/login-background.jpg" alt="Background" class="background">
 </div>
