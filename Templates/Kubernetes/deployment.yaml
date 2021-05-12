@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: fap-frontend
-          image: onnythunder/fap-frontend:v3
+          image: onnythunder/fap-frontend:v4
           ports:
             - containerPort: 80
 

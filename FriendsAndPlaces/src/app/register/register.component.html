@@ -4,7 +4,7 @@
 </button>
 <h1>{{heading}}</h1>
 <mat-progress-bar mode="indeterminate" [class.invisible]="! loading"></mat-progress-bar>
-<mat-horizontal-stepper #stepper id="stepper" linear>
+<mat-vertical-stepper #stepper id="stepper" linear>
   <mat-step [stepControl]="personalForm">
     <form [formGroup]="personalForm">
       <ng-template matStepLabel>Persönliche Daten</ng-template>
@@ -139,4 +139,4 @@
       </div>
     </form>
   </mat-step>
-</mat-horizontal-stepper>
+</mat-vertical-stepper>
