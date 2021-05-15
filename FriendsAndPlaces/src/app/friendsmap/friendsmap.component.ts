@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Output} from '@angular/core';
 import * as L from 'leaflet';
 import {LocationService} from '../services/location.service';
 import {FriendsService} from '../services/friends.service';
-import {detect} from 'detect-browser';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MapService} from '../services/map.service';
+import { SaveLocationComponent } from '../save-location/save-location.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -27,9 +28,14 @@ L.Marker.prototype.options.icon = iconDefault;
   templateUrl: './friendsmap.component.html',
   styleUrls: ['./friendsmap.component.scss']
 })
-export class FriendsmapComponent implements OnInit, AfterViewInit {
+export class FriendsmapComponent implements AfterViewInit {
 
-  constructor(private locationService: LocationService, private friendsService: FriendsService, private snackBar: MatSnackBar, private mapService: MapService) {
+  constructor(
+    private locationService: LocationService,
+    private friendsService: FriendsService,
+    private snackBar: MatSnackBar,
+    private mapService: MapService,
+    private dialog: MatDialog) {
   }
 
   @Output() selectedPage = new EventEmitter<string>();
@@ -84,7 +90,8 @@ export class FriendsmapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngOnInit(): void {
+  openSaveLocationDialog(): void {
+    this.dialog.open(SaveLocationComponent);
   }
 
   ngAfterViewInit(): void {
