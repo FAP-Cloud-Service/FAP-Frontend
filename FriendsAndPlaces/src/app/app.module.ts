@@ -21,7 +21,8 @@ import {MapComponent} from './map/map.component';
 import { FriendsDetailComponent } from './friends-detail/friends-detail.component';
 import { FriendsmapComponent } from './friendsmap/friendsmap.component';
 import { DisplayNamePipe } from './pipes/display-name.pipe';
-import { IntroductionComponent } from './introduction/introduction.component';
+import { SaveLocationManualComponent } from './save-location/save-location-manual/save-location-manual.component';
+import { SaveLocationGeolocationComponent } from './save-location/save-location-geolocation/save-location-geolocation.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { IntroductionComponent } from './introduction/introduction.component';
     FriendsDetailComponent,
     FriendsmapComponent,
     DisplayNamePipe,
-    IntroductionComponent
+    SaveLocationManualComponent,
+    SaveLocationGeolocationComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,18 @@
+<form [formGroup]="positionForm">
+  <mat-form-field>
+    <mat-label>Längengrad</mat-label>
+    <input matInput placeholder="Längengrad" formControlName="latitude">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Breitengrad</mat-label>
+    <input matInput placeholder="Breitengrad" formControlName="longitude">
+  </mat-form-field>
+  <div class="map">
+  </div>
+  <button mat-icon-button color="primary" type="button" (click)="changeFormState()"
+          matTooltip="Dein Standort wurde automatisch ermittelt. Du kannst die Koordinaten aber anpassen, wenn du möchtest">
+    <mat-icon *ngIf="positionForm.disabled">edit</mat-icon>
+    <mat-icon *ngIf="positionForm.enabled">lock</mat-icon>
+  </button>
+</form>

@@ -10,36 +10,17 @@ import {HttpErrorResponse} from '@angular/common/http';
   templateUrl: './save-location.component.html',
   styleUrls: ['./save-location.component.scss']
 })
-export class SaveLocationComponent implements OnInit {
+export class SaveLocationComponent {
   latitude: any;
   longitude: any;
   loading = false;
-  positionForm: FormGroup = new FormGroup({
-    latitude: new FormControl('', Validators.required),
-    longitude: new FormControl('', Validators.required)
-  });
-
   constructor(public dialogRef: MatDialogRef<any>, private locationService: LocationService, private snackBar: MatSnackBar) {
-  }
-
-  ngOnInit(): void {
-    this.getGeoPosition();
   }
 
   closeDialog(): void {
     this.dialogRef.close();
   }
-
-  getGeoPosition(): void {
-    navigator.geolocation.getCurrentPosition((position => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.positionForm.controls.latitude.setValue(this.latitude);
-      this.positionForm.controls.longitude.setValue(this.longitude);
-      this.positionForm.disable();
-    }));
-  }
-
+  /*
   submitLocation(): any {
     this.loading = true;
     const positionFormControls = this.positionForm.controls;
@@ -53,12 +34,5 @@ export class SaveLocationComponent implements OnInit {
       }
     );
   }
-  changeFormState(): void {
-    if (this.positionForm.enabled) {
-      this.positionForm.disable();
-    }
-    else {
-      this.positionForm.enable();
-    }
-  }
+ */
 }
