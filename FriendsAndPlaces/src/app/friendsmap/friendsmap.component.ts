@@ -6,6 +6,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MapService} from '../services/map.service';
 import { SaveLocationComponent } from '../save-location/save-location.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SessionService } from '../services/session.service';
+import { SessionSettings } from '../interfaces/session';
 
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -30,14 +32,6 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class FriendsmapComponent implements AfterViewInit {
 
-  constructor(
-    private locationService: LocationService,
-    private friendsService: FriendsService,
-    private snackBar: MatSnackBar,
-    private mapService: MapService,
-    private dialog: MatDialog) {
-  }
-
   @Output() selectedPage = new EventEmitter<string>();
 
   map: any;
@@ -45,12 +39,24 @@ export class FriendsmapComponent implements AfterViewInit {
   querySuccessful: boolean;
   errorMessage: string;
   loading = true;
+  session: SessionSettings;
+
+  markers: Array<any> = new Array();
+
+  constructor(
+    private locationService: LocationService,
+    private friendsService: FriendsService,
+    private snackBar: MatSnackBar,
+    private mapService: MapService,
+    private sessionService: SessionService,
+    private dialog: MatDialog) {
+      this.session = this.sessionService.getSession();
+  }
 
   private initMap(friendsArray: any): void {
 
     this.map = this.mapService.getMap('map', 51.1642292, 10.4541194, 10);
 
-    const markers: any[] = [];
     for (const friend of friendsArray) {
       const marker = L.marker([friend.latitude, friend.longitude]);
       const popUpHtml = `<div>Name: ${friend.name}</div>` +
@@ -58,9 +64,9 @@ export class FriendsmapComponent implements AfterViewInit {
         `<div>Latitude: ${friend.latitude}</div>`;
       marker.bindPopup(popUpHtml);
       marker.addTo(this.map);
-      markers.push(marker);
+      this.markers.push(marker);
     }
-    const group = L.featureGroup(markers);
+    const group = L.featureGroup(this.markers);
     this.map.fitBounds(group.getBounds());
   }
 
@@ -91,7 +97,17 @@ export class FriendsmapComponent implements AfterViewInit {
   }
 
   openSaveLocationDialog(): void {
-    this.dialog.open(SaveLocationComponent);
+    this.dialog.open(SaveLocationComponent).afterClosed().subscribe(() => {
+      this.locationService.getLocationByUser(this.session.username).subscribe(location => {
+        const marker = L.marker([location.breitengrad, location.laengengrad]);
+        const popUpHtml = `<div>Name: ${this.session.username}</div>` +
+          `<div>Longitude: ${location.breitengrad}</div>` +
+          `<div>Latitude: ${location.laengengrad}</div>`;
+        marker.bindPopup(popUpHtml);
+        marker.addTo(this.map);
+        this.markers.push(marker);
+      })
+    });
   }
 
   ngAfterViewInit(): void {

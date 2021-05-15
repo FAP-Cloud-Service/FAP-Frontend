@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Location} from '../interfaces/location';
+import {FriendLocation, Location} from '../interfaces/location';
 import {SessionService} from './session.service';
 import {Observable} from 'rxjs';
 
@@ -25,13 +25,13 @@ export class LocationService {
     };
     return this.httpClient.put('/api/setlocation', payload, httpOptions);
   }
-  getLocationByUser(username: string): Observable<any> {
+  getLocationByUser(username: string): Observable<FriendLocation> {
     const session = this.sessionService.getSessionIfExistsAndValid();
     const loggedInUsername = session.username;
     const sessionId = session.session.sessionId;
     const httpOptions = {
       headers: new HttpHeaders({ Accept: 'application/json' })
     };
-    return this.httpClient.get('/api/location?login=' + loggedInUsername + '&session=' + sessionId + '&id=' + username, httpOptions);
+    return this.httpClient.get<FriendLocation>('/api/location?login=' + loggedInUsername + '&session=' + sessionId + '&id=' + username, httpOptions);
   }
 }
