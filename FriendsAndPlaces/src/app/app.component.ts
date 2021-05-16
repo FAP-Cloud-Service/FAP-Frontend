@@ -41,6 +41,7 @@ export class AppComponent {
     this.selectedPage = value;
     if (this.selectedPage == 'login' && loginAgain) {
       this.loggedIn = false;
+      this.sessionService.deleteSession();
     }
     this.sidenavOpen = false;
   }
