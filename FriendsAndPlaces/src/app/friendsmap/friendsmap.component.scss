@@ -5,6 +5,7 @@
   right: 0;
   bottom: 0;
   margin: 16px;
+  z-index: 0;
 }
 
 .map-frame {
@@ -14,9 +15,19 @@
 #map {
   height: 100%;
 }
+
+.save-location-fab {
+  z-index: 0;
+  position: fixed;
+  bottom: 48px;
+  right: 48px;
+}
+
 .loading {
+  margin-top: 128px;
   text-align: center;
 }
+
 mat-spinner {
   margin: 10px auto;
 }
