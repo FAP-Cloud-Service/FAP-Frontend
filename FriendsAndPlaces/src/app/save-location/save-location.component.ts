@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {LocationService} from '../services/location.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
+import {MapComponent} from "../map/map.component";
 
 @Component({
   selector: 'app-save-location',
@@ -14,6 +15,7 @@ export class SaveLocationComponent {
   latitude: any;
   longitude: any;
   loading = false;
+  dialog: MatDialog;
   constructor(public dialogRef: MatDialogRef<any>, private locationService: LocationService, private snackBar: MatSnackBar) {
   }
 

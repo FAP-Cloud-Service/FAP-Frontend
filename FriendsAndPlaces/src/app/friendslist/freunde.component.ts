@@ -51,6 +51,6 @@ export class FreundeComponent implements OnInit {
     );
   }
   openLocationDialog(): void {
-    this.dialog.open(SaveLocationComponent, { width: '100%' });
+    this.dialog.open(SaveLocationComponent, { width: '100%', minHeight: '70%' });
   }
 }
