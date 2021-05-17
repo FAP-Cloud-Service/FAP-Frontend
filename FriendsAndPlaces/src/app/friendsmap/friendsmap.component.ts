@@ -8,6 +8,7 @@ import { SaveLocationComponent } from '../save-location/save-location.component'
 import { MatDialog } from '@angular/material/dialog';
 import { SessionService } from '../services/session.service';
 import { SessionSettings } from '../interfaces/session';
+import { Friend, FriendList, FriendMarker } from '../interfaces/friends';
 
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -35,7 +36,7 @@ export class FriendsmapComponent implements AfterViewInit {
   @Output() selectedPage = new EventEmitter<string>();
 
   map: any;
-  friendList: any[];
+  friendList: Array<Friend>;
   querySuccessful: boolean;
   errorMessage: string;
   loading = true;
@@ -53,9 +54,13 @@ export class FriendsmapComponent implements AfterViewInit {
       this.session = this.sessionService.getSession();
   }
 
-  private initMap(friendsArray: any): void {
+  private initMap(friendsArray: Array<FriendMarker>): void {
 
     this.map = this.mapService.getMap('map', 51.1642292, 10.4541194, 10);
+
+    if (friendsArray.length == 0) {
+      return;
+    }
 
     for (const friend of friendsArray) {
       const marker = L.marker([friend.latitude, friend.longitude]);
@@ -70,30 +75,33 @@ export class FriendsmapComponent implements AfterViewInit {
     this.map.fitBounds(group.getBounds());
   }
 
-  async getFriends(): Promise<any> {
+  async getFriends(): Promise<Array<FriendMarker>> {
+    const friendsArray: Array<FriendMarker> = new Array<FriendMarker>();
     try {
-      const friendsArray: { name: string; latitude: number; longitude: number; }[] = [];
       const response = await this.friendsService.getAllFriends().toPromise();
       if (response) {
         this.querySuccessful = true;
         for (const friend of response.benutzerliste) {
           const responseLoc = await this.locationService.getLocationByUser(friend.loginName).toPromise();
           if (responseLoc) {
-            const friendObj = {name: '', latitude: 0, longitude: 0};
-            friendObj.name = friend.loginName;
-            friendObj.latitude = responseLoc.breitengrad;
-            friendObj.longitude = responseLoc.laengengrad;
+            const friendObj: FriendMarker = {name: friend.loginName, latitude: responseLoc.breitengrad, longitude: responseLoc.laengengrad};
             friendsArray.push(friendObj);
           }
         }
+      }
+    } catch (err) {
+      this.querySuccessful = false;
+      console.error('Error while retrieving friends:', err);
+      if (err.status == 401) {
+        this.snackBar.open('Fehler beim validieren der Login-Daten, bitte melden sie sich erneut an.', 'Erneut Anmelden').onAction().subscribe(() => {
+          this.selectedPage.emit('login');
+        });
+        this.loading = false;
       } else {
-        this.querySuccessful = false;
         this.snackBar.open('Beim Laden deiner Freunde ist ein Fehler aufgetreten...', '', {duration: 5000});
       }
-      return friendsArray;
-    } catch (error) {
-      this.snackBar.open('Beim Laden deiner Freunde ist ein Fehler aufgetreten...', '', {duration: 5000});
     }
+    return friendsArray;
   }
 
   openSaveLocationDialog(): void {
