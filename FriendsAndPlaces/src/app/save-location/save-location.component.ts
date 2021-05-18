@@ -4,7 +4,9 @@ import {LocationService} from '../services/location.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
-import {MapComponent} from "../map/map.component";
+import {MapComponent} from '../map/map.component';
+import {Address, FriendLocation, Location} from '../interfaces/location';
+import {Friend} from '../interfaces/friends';
 
 @Component({
   selector: 'app-save-location',
@@ -14,7 +16,9 @@ import {MapComponent} from "../map/map.component";
 export class SaveLocationComponent {
   latitude: any;
   longitude: any;
-  loading = false;
+  submitDisabled = true;
+  addressFormValues: Address;
+  loading = true;
   dialog: MatDialog;
   constructor(public dialogRef: MatDialogRef<any>, private locationService: LocationService, private snackBar: MatSnackBar) {
   }
@@ -22,11 +26,30 @@ export class SaveLocationComponent {
   closeDialog(): void {
     this.dialogRef.close();
   }
-  /*
+  locationReceivedHandler(location: FriendLocation): void {
+    this.latitude = location.breitengrad;
+    this.longitude = location.laengengrad;
+    this.loading = false;
+    this.submitDisabled = false;
+    this.snackBar.open('Standort wurde ermittelt', '', {duration: 5000});
+  }
+  addressReceivedHandler(address: Address): void {
+    this.addressFormValues = address;
+    this.locationService.getCoordinatesByAddress(address.country, address.zip, address.city, address.street).subscribe(
+      (res: {standort: FriendLocation}) => {
+        console.log('Response erhalten: ' + JSON.stringify(res, null, 2));
+        this.latitude = res.standort.breitengrad;
+        this.longitude = res.standort.laengengrad;
+        this.snackBar.open('Du befindest dich in der Stadt ' + address.city);
+      },
+    () => {
+        this.snackBar.open('Diese Addresse konnte nicht zugeordnet werden', '', {duration: 6000});
+    }
+    );
+  }
   submitLocation(): any {
     this.loading = true;
-    const positionFormControls = this.positionForm.controls;
-    this.locationService.submitLocation(positionFormControls.latitude.value, positionFormControls.longitude.value).subscribe(
+    this.locationService.submitLocation(this.latitude, this.longitude).subscribe(
       () => {
         this.dialogRef.close();
       },
@@ -36,5 +59,4 @@ export class SaveLocationComponent {
       }
     );
   }
- */
 }

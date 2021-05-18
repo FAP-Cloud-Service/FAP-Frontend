@@ -1,7 +1,3 @@
-<p *ngIf="!longitude || !latitude">
-  Dein Standort konnte nicht bestimmt werden
-</p>
-<h1>{{latitude}} {{longitude}}</h1>
-<div *ngIf="latitude && longitude" class="map-container">
-  <app-map [isSingleFriend]="true" [latitude]="latitude" [longitude]="longitude" name="Dein Standort"></app-map>
+<div *ngIf="friendLocation" class="map-container">
+  <app-google-maps [latitude]="friendLocation.breitengrad" [longitude]="friendLocation.laengengrad"></app-google-maps>
 </div>

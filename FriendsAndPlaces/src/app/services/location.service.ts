@@ -34,7 +34,10 @@ export class LocationService {
     };
     return this.httpClient.get<FriendLocation>('/api/location?login=' + loggedInUsername + '&session=' + sessionId + '&id=' + username, httpOptions);
   }
-  getCoordinatesByAAdress(country: string, zip: string, city: string, street: string): Observable<any> {
-    return this.httpClient.get('/api/coordinates?land=' + country + '&plz=' + zip + '&ort=' + city + '&strasse=' + street);
+  getCoordinatesByAddress(country: string, zip: string, city: string, street: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ Accept: 'application/json' })
+    };
+    return this.httpClient.get('/api/coordinates?land=' + country + '&plz=' + zip + '&ort=' + city + '&strasse=' + street, httpOptions);
   }
 }

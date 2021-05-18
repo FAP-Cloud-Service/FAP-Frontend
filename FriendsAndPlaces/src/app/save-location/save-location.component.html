@@ -4,15 +4,22 @@
 <mat-card-content>
   <mat-tab-group>
     <mat-tab label="Automatisch">
-      <app-save-location-geolocation></app-save-location-geolocation>
+      <app-save-location-geolocation (locationReceived)="locationReceivedHandler($event)"></app-save-location-geolocation>
     </mat-tab>
     <mat-tab label="Adresse eingeben">
-      <app-save-location-manual></app-save-location-manual>
+      <app-save-location-manual (manualLocation)="addressReceivedHandler($event)"></app-save-location-manual>
     </mat-tab>
   </mat-tab-group>
 </mat-card-content>
 <mat-card-actions>
   <button mat-button color="warn" (click)="closeDialog()">Abbrechen</button>
-  <button mat-button color="primary">Karte anzeigen</button>
-  <button mat-raised-button color="primary">Speichern</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submitLocation()"
+    [disabled]="submitDisabled"
+    matTooltip="Diesen Standort für deine Freunde veröffentlichen?"
+  >
+    Speichern
+  </button>
 </mat-card-actions>

@@ -8,6 +8,7 @@ import { SaveLocationComponent } from '../save-location/save-location.component'
 import { MatDialog } from '@angular/material/dialog';
 import { SessionService } from '../services/session.service';
 import { SessionSettings } from '../interfaces/session';
+import {FriendMapLocation} from '../interfaces/location';
 
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -35,41 +36,22 @@ export class FriendsmapComponent implements AfterViewInit {
   @Output() selectedPage = new EventEmitter<string>();
 
   map: any;
-  friendList: any[];
+  friendList: FriendMapLocation[];
   querySuccessful: boolean;
   errorMessage: string;
   loading = true;
   session: SessionSettings;
 
-  markers: Array<any> = new Array();
+  markers: Array<any> = [];
 
   constructor(
     private locationService: LocationService,
     private friendsService: FriendsService,
     private snackBar: MatSnackBar,
-    private mapService: MapService,
     private sessionService: SessionService,
     private dialog: MatDialog) {
       this.session = this.sessionService.getSession();
   }
-
-  private initMap(friendsArray: any): void {
-
-    this.map = this.mapService.getMap('map', 51.1642292, 10.4541194, 10);
-
-    for (const friend of friendsArray) {
-      const marker = L.marker([friend.latitude, friend.longitude]);
-      const popUpHtml = `<div>Name: ${friend.name}</div>` +
-        `<div>Longitude: ${friend.longitude}</div>` +
-        `<div>Latitude: ${friend.latitude}</div>`;
-      marker.bindPopup(popUpHtml);
-      marker.addTo(this.map);
-      this.markers.push(marker);
-    }
-    const group = L.featureGroup(this.markers);
-    this.map.fitBounds(group.getBounds());
-  }
-
   async getFriends(): Promise<any> {
     try {
       const friendsArray: { name: string; latitude: number; longitude: number; }[] = [];
@@ -106,13 +88,12 @@ export class FriendsmapComponent implements AfterViewInit {
         marker.bindPopup(popUpHtml);
         marker.addTo(this.map);
         this.markers.push(marker);
-      })
+      });
     });
   }
 
   ngAfterViewInit(): void {
-    this.getFriends().then((friendsArray) => {
-      this.initMap(friendsArray);
+    this.getFriends().then(() => {
       this.loading = false;
     });
   }

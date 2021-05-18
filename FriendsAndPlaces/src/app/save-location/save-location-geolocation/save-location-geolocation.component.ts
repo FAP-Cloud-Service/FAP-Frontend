@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FriendLocation} from '../../interfaces/location';
+import {Friend} from '../../interfaces/friends';
 @Component({
   selector: 'app-save-location-geolocation',
   templateUrl: './save-location-geolocation.component.html',
   styleUrls: ['./save-location-geolocation.component.scss']
 })
 export class SaveLocationGeolocationComponent implements OnInit {
-  latitude: any;
-  longitude: any;
+  @Output() locationReceived: EventEmitter<FriendLocation> = new EventEmitter<FriendLocation>();
+  friendLocation: FriendLocation;
   constructor() { }
 
   ngOnInit(): void {
@@ -14,8 +16,11 @@ export class SaveLocationGeolocationComponent implements OnInit {
   }
   getGeoPosition(): void {
     navigator.geolocation.getCurrentPosition((position => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
+      this.friendLocation = {
+        breitengrad: position.coords.latitude,
+        laengengrad: position.coords.longitude
+      };
+      this.locationReceived.emit(this.friendLocation);
     }));
   }
 }
