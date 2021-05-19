@@ -4,7 +4,6 @@ import {LocationService} from '../services/location.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
-import {MapComponent} from '../map/map.component';
 import {Address, FriendLocation, Location} from '../interfaces/location';
 import {Friend} from '../interfaces/friends';
 
