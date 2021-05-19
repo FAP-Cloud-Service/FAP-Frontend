@@ -6,4 +6,4 @@
   <mat-spinner></mat-spinner>
   <p style="text-align: center">Lade Freunde und Standorte...</p>
 </div >
-<app-google-maps [friendArray]="friendList" *ngIf="querySuccessful"></app-google-maps>
+<app-google-maps [friendArray]="friendList" *ngIf="!loading && querySuccessful"></app-google-maps>

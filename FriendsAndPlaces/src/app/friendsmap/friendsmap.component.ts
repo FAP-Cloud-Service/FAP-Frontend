@@ -72,7 +72,7 @@ export class FriendsmapComponent implements AfterViewInit {
         this.querySuccessful = false;
         this.snackBar.open('Beim Laden deiner Freunde ist ein Fehler aufgetreten...', '', {duration: 5000});
       }
-      return friendsArray;
+      this.friendList = friendsArray;
     } catch (error) {
       this.snackBar.open('Beim Laden deiner Freunde ist ein Fehler aufgetreten...', '', {duration: 5000});
     }
@@ -93,9 +93,9 @@ export class FriendsmapComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.getFriends().then(() => {
+     this.getFriends().then(() => {
       this.loading = false;
-    });
+     });
   }
 
 }

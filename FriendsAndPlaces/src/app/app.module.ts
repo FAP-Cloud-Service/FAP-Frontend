@@ -17,7 +17,6 @@ import {LogoutVerificationComponent} from './logout-verification/logout-verifica
 import {FreundeComponent} from './friendslist/freunde.component';
 import {ErrorComponent} from './error/error.component';
 import {SaveLocationComponent} from './save-location/save-location.component';
-import {MapComponent} from './map/map.component';
 import {FriendsDetailComponent} from './friends-detail/friends-detail.component';
 import {FriendsmapComponent} from './friendsmap/friendsmap.component';
 import {DisplayNamePipe} from './pipes/display-name.pipe';
@@ -38,7 +37,6 @@ import {AgmCoreModule} from '@agm/core';
     FreundeComponent,
     ErrorComponent,
     SaveLocationComponent,
-    MapComponent,
     FriendsDetailComponent,
     FriendsmapComponent,
     DisplayNamePipe,

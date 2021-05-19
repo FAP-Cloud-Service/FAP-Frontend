@@ -116,6 +116,7 @@
           <mat-label>Dein Passwort</mat-label>
           <input matInput type="password" placeholder="Passwort" formControlName="password" autocomplete="new-password"
                  required id="password">
+          <mat-error *ngIf="accountForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Passwort Wiederholen</mat-label>

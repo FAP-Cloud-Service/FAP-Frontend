@@ -1,4 +1,4 @@
-<agm-map [latitude]="latitude" [longitude]="longitude" *ngIf="latitude && longitude">
+<agm-map [fitBounds]="bounds" #AgmMap  [latitude]="latitude" [longitude]="longitude" *ngIf="(latitude && longitude) || friendArray">
   <agm-marker [latitude]="latitude" [longitude]="longitude" *ngIf="latitude && longitude" animation="DROP" [title]="username"></agm-marker>
   <agm-marker *ngFor="let friend of friendArray" [latitude]="friend.latitude" [longitude]="friend.longitude" [label]="friend.name"></agm-marker>
 </agm-map>
