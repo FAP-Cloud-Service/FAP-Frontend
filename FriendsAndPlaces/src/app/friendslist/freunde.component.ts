@@ -14,7 +14,7 @@ import { DisplayNamePipe } from '../pipes/display-name.pipe';
 
 export class FreundeComponent implements OnInit {
   @Output() selectedPage = new EventEmitter<string>();
-  friendList: [Friend];
+  friendList: Array<Friend>;
   loading = true;
   errorOccurred = false;
   breakpoint = false;

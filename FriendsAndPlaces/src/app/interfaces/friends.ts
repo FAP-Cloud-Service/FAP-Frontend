@@ -1,5 +1,5 @@
 export interface FriendList {
-  benutzerliste: [Friend];
+  benutzerliste: Array<Friend>;
 }
 
 export interface Friend {
@@ -7,4 +7,10 @@ export interface Friend {
   vorname: string;
   nachname: string;
   displayname: string
+}
+
+export interface FriendMarker {
+  name: string;
+  latitude: number;
+  longitude: number;
 }
