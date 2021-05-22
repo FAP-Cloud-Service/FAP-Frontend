@@ -1,0 +1,21 @@
+mat-form-field {
+  display: block;
+  width: 100%;
+}
+
+form {
+  margin-top: 12px;
+  display: block;
+}
+
+.map-container {
+  min-height: 300px;
+  max-height: 1000px;
+  height: 100%;
+}
+
+agm-map {
+  min-height: 300px;
+  max-height: 1000px;
+  height: 100%;
+}

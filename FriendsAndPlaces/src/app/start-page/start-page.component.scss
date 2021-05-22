@@ -20,17 +20,6 @@
 
 }
 
-h1 {
-  text-align: center;
-  font-size: 7em;
-  line-height: 2.5em;
-  margin-bottom: 50px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.2);
-  animation-name: fade-animation;
-  animation-duration: .8s;
-}
-
 .mat-card-loggedin {
   max-width: 300px;
   display: block;
@@ -50,22 +39,12 @@ h1 {
   width: 100%;
   margin: 12px auto;
 }
-
-mat-grid-list {
-  max-width: 60%;
-  display: block;
-  margin: 0 auto;
-}
-
-mat-card {
-  min-height: 403px;
-}
-mat-grid-tile button {
-  display: block;
-  margin: 12px 0;
-  width: 100%;
+button {
   height: 50px;
+  width: 20%;
   border-radius: 50px;
+  display: block;
+  margin: 0 auto 150px auto;
 }
 
 .blur-backdrop {
@@ -74,4 +53,20 @@ mat-grid-tile button {
 
 .background-image {
   transition: filter .5s;
+}
+
+.full-width {
+  min-width: 100%;
+  font-size: 2em;
+  min-height: 40px;
+}
+
+h1 {
+  text-align: center;
+  display: block;
+  width: 100%;
+  font-size: 2em;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 15px 0;
+  color: white;
 }

@@ -1,6 +1,6 @@
 <div class="map" *ngIf="querySuccessful">
-  <app-map *ngIf="querySuccessful" [latitude]="latitude" [longitude]="longitude" [name]="displayname" [isSingleFriend]="true">
-  </app-map></div>
+  <app-google-maps [latitude]="latitude" [longitude]="longitude" [username]="username"></app-google-maps>
+</div>
 <p style="text-align: center" *ngIf="!(querySuccessful) && !(loading)">Keine Daten vorhanden</p>
 <div class="loading" *ngIf="loading">
   <mat-spinner></mat-spinner>

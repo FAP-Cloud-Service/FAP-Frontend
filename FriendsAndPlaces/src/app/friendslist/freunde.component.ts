@@ -17,6 +17,7 @@ export class FreundeComponent implements OnInit {
   friendList: Array<Friend>;
   loading = true;
   errorOccurred = false;
+  breakpoint = false;
   constructor(
     private friendsService: FriendsService,
     private snackBar: MatSnackBar,
@@ -24,7 +25,12 @@ export class FreundeComponent implements OnInit {
     private displayNamePipe: DisplayNamePipe) { }
 
   ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 1000);
     this.getFriends();
+  }
+
+  onResize(event: any): void {
+    this.breakpoint = (event.target.innerWidth <= 1000);
   }
   getFriends(): void {
     this.loading = true;
@@ -45,6 +51,6 @@ export class FreundeComponent implements OnInit {
     );
   }
   openLocationDialog(): void {
-    this.dialog.open(SaveLocationComponent);
+    this.dialog.open(SaveLocationComponent, { width: '100%', minHeight: '70%' });
   }
 }
