@@ -13,11 +13,11 @@
     <mat-sidenav mode="over" [(opened)]="sidenavOpen">
       <app-sidenav-content [loggedIn]="loggedIn" [selectPage]="selectedPage" (selectedPage)="selectPage($event)"></app-sidenav-content>
     </mat-sidenav>
-    <mat-sidenav-content>
-      <app-login *ngIf="selectedPage == 'login'" (sessionChanged)="sessionChanged()"></app-login>
-      <app-start-page *ngIf="selectedPage == 'start'" (selectedPage)="selectPage($event)" [loggedIn]="loggedIn"></app-start-page>
-      <app-friendsmap  *ngIf="selectedPage == 'friendsmap'" (selectedPage)="selectPage($event, true)"></app-friendsmap>
-      <app-freunde *ngIf="selectedPage =='friendslist'" (selectedPage)="selectPage($event)"></app-freunde>
+    <mat-sidenav-content [ngSwitch]="selectedPage">
+      <app-login *ngSwitchCase="'login'" (sessionChanged)="sessionChanged()"></app-login>
+      <app-start-page *ngSwitchCase="'start'" (selectedPage)="selectPage($event)" [loggedIn]="loggedIn"></app-start-page>
+      <app-friendsmap  *ngSwitchCase="'friendsmap'" (selectedPage)="selectPage($event, true)"></app-friendsmap>
+      <app-freunde *ngSwitchCase="'friendslist'" (selectedPage)="selectPage($event)"></app-freunde>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
