@@ -18,6 +18,7 @@
       <app-start-page *ngSwitchCase="'start'" (selectedPage)="selectPage($event)" [loggedIn]="loggedIn"></app-start-page>
       <app-friendsmap  *ngSwitchCase="'friendsmap'" (selectedPage)="selectPage($event, true)"></app-friendsmap>
       <app-freunde *ngSwitchCase="'friendslist'" (selectedPage)="selectPage($event)"></app-freunde>
+      <app-watch-list *ngSwitchCase="'watchList'"></app-watch-list>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
