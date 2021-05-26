@@ -30,6 +30,19 @@
     margin-top: 16px;
 }
 
+.card {
+    height: 100%;
+}
+
+.friend-list {
+    width: 100%;
+
+    &__remove-button {
+        margin-left: auto;
+        width: 42px;
+    }
+}
+
 .background-image-watch-list {
     height: 90%;
 }

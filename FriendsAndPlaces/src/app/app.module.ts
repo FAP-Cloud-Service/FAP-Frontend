@@ -53,7 +53,7 @@ import { WatchListComponent } from './watch-list/watch-list.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
-      apiKey: ''
+      apiKey: 'AIzaSyBAjBQ4sV1ykQCBD2DHN5DwH9OjuejnkGk'
     })
   ],
   providers: [
