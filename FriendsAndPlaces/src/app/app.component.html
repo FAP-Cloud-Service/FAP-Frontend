@@ -3,10 +3,11 @@
     <button mat-icon-button class="menu-button" (click)="sidenavOpen = !sidenavOpen">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Friends and Places</span>
-    <span class="toolbar-spacer"></span>
+    <span *ngIf="!breakpoint">Friends and Places</span>
+    <span *ngIf="!breakpoint" class="toolbar-spacer"></span>
     <span *ngIf="selectedPage != 'login' && loggedIn && currentSession && currentSession.username != ''" class="toolbar-username-span">Hallo {{currentSession.username}}</span>
-    <button *ngIf="selectedPage != 'login'" mat-raised-button color="foreground" (click)="logInOut()">{{ loggedIn ? 'Logout' : 'Login'}}</button>
+    <span *ngIf="breakpoint" class="toolbar-spacer"></span>
+    <button *ngIf="selectedPage != 'login'" mat-raised-button color="foreground" (click)="logInOut()">{{ loggedIn ? 'Abmelden' : 'Anmelden'}}</button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav">
