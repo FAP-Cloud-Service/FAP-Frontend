@@ -24,6 +24,7 @@ import {SaveLocationManualComponent} from './save-location/save-location-manual/
 import {SaveLocationGeolocationComponent} from './save-location/save-location-geolocation/save-location-geolocation.component';
 import {GoogleMapsComponent} from './google-maps/google-maps.component';
 import {AgmCoreModule} from '@agm/core';
+import { WatchListComponent } from './watch-list/watch-list.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {AgmCoreModule} from '@agm/core';
     SaveLocationManualComponent,
     SaveLocationGeolocationComponent,
     GoogleMapsComponent,
+    WatchListComponent,
   ],
   imports: [
     BrowserModule,

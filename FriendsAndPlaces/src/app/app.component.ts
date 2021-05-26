@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SessionSettings } from './interfaces/session';
@@ -11,7 +11,7 @@ import {UserService} from './services/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Friends And Places';
 
   sidenavOpen = false;
@@ -19,6 +19,8 @@ export class AppComponent {
 
   loggedIn = false;
   currentSession: SessionSettings;
+
+  breakpoint = false;
 
   constructor(
     private sessionService: SessionService,
@@ -35,6 +37,10 @@ export class AppComponent {
     if (!this.loggedIn) {
       this.selectedPage = 'login';
     }
+  }
+
+  ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 480);
   }
 
   selectPage(value: string, loginAgain: boolean = false): void {
