@@ -117,9 +117,9 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
           <mat-label>Dein Passwort</mat-label>
-          <input matInput type="password" placeholder="Passwort" formControlName="password" autocomplete="new-password"
+          <input matInput type="password" placeholder="Passwort" formControlName="password" #password autocomplete="new-password"
                  required id="password">
-          <mat-hint>Mindestens 6 Zeichen: {{ username.value?.length || 0 }}/6</mat-hint>
+          <mat-hint>Mindestens 6 Zeichen: {{ password.value?.length || 0 }}/6</mat-hint>
           <mat-error *ngIf="accountForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="wide-input">
