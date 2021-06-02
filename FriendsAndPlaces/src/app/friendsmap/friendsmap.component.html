@@ -1,9 +1,10 @@
 <p style="text-align: center" *ngIf="!querySuccessful && !loading">Keine Daten vorhanden</p>
-<button mat-fab *ngIf="!loading && querySuccessful" matTooltip="Standort speichern" class="save-location-fab" color="primary" (click)="openSaveLocationDialog()">
-  <mat-icon>add</mat-icon>
-</button>
+
 <div class="loading" *ngIf="loading">
   <mat-spinner></mat-spinner>
   <p style="text-align: center">Lade Freunde und Standorte...</p>
 </div >
 <app-google-maps [friendArray]="friendList" *ngIf="!loading && querySuccessful"></app-google-maps>
+<button mat-fab *ngIf="!loading && querySuccessful" matTooltip="Standort speichern" class="save-location-fab" color="primary" (click)="openSaveLocationDialog()">
+  <mat-icon>add</mat-icon>
+</button>
