@@ -14,14 +14,15 @@ export class GoogleMapsComponent implements OnInit, AfterViewInit {
   @Input() longitude: number;
   @Input() username: string;
   @Input() friendArray?: any[];
-  @Input() 
-  public set friendsArrayChanged(val: number) {    
+  @Input()
+  public set friendsArrayChanged(val: number) {
     if (this.friendArray && this.friendArray.length > 0) {
       this.updateBounds();
     }
   }
 
   public bounds: any;
+  public zoomControlOptions: any;
   map: any;
 
   constructor(public mapsAPILoader: MapsAPILoader) { }
@@ -33,6 +34,9 @@ export class GoogleMapsComponent implements OnInit, AfterViewInit {
     if (this.friendArray !== undefined) {
       this.mapsAPILoader.load().then(() => {
         this.bounds = new google.maps.LatLngBounds();
+        this.zoomControlOptions = {
+          position: google.maps.ControlPosition.RIGHT_TOP,
+        };
         // @ts-ignore
         for (const item of this.friendArray){
           this.bounds.extend(new google.maps.LatLng(item.latitude, item.longitude));
@@ -51,8 +55,8 @@ export class GoogleMapsComponent implements OnInit, AfterViewInit {
       // @ts-ignore
       for (const item of this.friendArray){
         this.bounds.extend(new google.maps.LatLng(item.latitude, item.longitude));
-      } 
-      
+      }
+
       // this.map.fitBounds(this.bounds);
     }
   }
