@@ -17,6 +17,7 @@ import {UserService} from '../services/user.service';
 })
 export class RegisterComponent implements OnInit {
   // variables
+  usernameValid: boolean;
   loading = false;
   countryLoading = false;
   countries: any;
@@ -182,6 +183,10 @@ export class RegisterComponent implements OnInit {
         if (!res.ergebnis) {
           this.snackBar.open('Dieser Benutzername ist nicht verfügbar');
           this.accountForm.controls.username.setErrors(Validators.required);
+          this.usernameValid = false;
+        }
+        else {
+          this.usernameValid = true;
         }
       }
     );
