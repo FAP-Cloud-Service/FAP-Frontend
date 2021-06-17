@@ -1,22 +1,19 @@
-.map-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 16px;
+.save-location-fab {
+  z-index: 0;
+  position: fixed;
+  bottom: 48px;
+  right: 48px;
 }
 
-.map-frame {
-  height: 100%;
-}
-
-#map {
-  height: 100%;
-}
 .loading {
+  margin-top: 128px;
   text-align: center;
 }
+
 mat-spinner {
   margin: 10px auto;
+}
+
+agm-map {
+  height: 100%;
 }

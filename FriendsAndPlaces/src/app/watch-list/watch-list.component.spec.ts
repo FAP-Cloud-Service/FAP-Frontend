@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FriendsmapComponent } from './friendsmap.component';
+import { WatchListComponent } from './watch-list.component';
 
-describe('FriendsmapComponent', () => {
-  let component: FriendsmapComponent;
-  let fixture: ComponentFixture<FriendsmapComponent>;
+describe('WatchListComponent', () => {
+  let component: WatchListComponent;
+  let fixture: ComponentFixture<WatchListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FriendsmapComponent ]
+      declarations: [ WatchListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FriendsmapComponent);
+    fixture = TestBed.createComponent(WatchListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

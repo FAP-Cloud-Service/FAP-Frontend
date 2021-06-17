@@ -1,49 +1,54 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {LocationService} from '../services/location.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
+import {Address, FriendLocation, Location} from '../interfaces/location';
+import {Friend} from '../interfaces/friends';
 
 @Component({
   selector: 'app-save-location',
   templateUrl: './save-location.component.html',
   styleUrls: ['./save-location.component.scss']
 })
-export class SaveLocationComponent implements OnInit {
+export class SaveLocationComponent {
   latitude: any;
   longitude: any;
-  loading = false;
-  positionForm: FormGroup = new FormGroup({
-    latitude: new FormControl('', Validators.required),
-    longitude: new FormControl('', Validators.required)
-  });
-
+  submitDisabled = true;
+  addressFormValues: Address;
+  loading = true;
+  dialog: MatDialog;
   constructor(public dialogRef: MatDialogRef<any>, private locationService: LocationService, private snackBar: MatSnackBar) {
-  }
-
-  ngOnInit(): void {
-    this.getGeoPosition();
   }
 
   closeDialog(): void {
     this.dialogRef.close();
   }
-
-  getGeoPosition(): void {
-    navigator.geolocation.getCurrentPosition((position => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.positionForm.controls.latitude.setValue(this.latitude);
-      this.positionForm.controls.longitude.setValue(this.longitude);
-      this.positionForm.disable();
-    }));
+  locationReceivedHandler(location: FriendLocation): void {
+    this.latitude = location.breitengrad;
+    this.longitude = location.laengengrad;
+    this.loading = false;
+    this.submitDisabled = false;
+    this.snackBar.open('Standort wurde ermittelt', '', {duration: 5000});
   }
-
+  addressReceivedHandler(address: Address): void {
+    this.addressFormValues = address;
+    this.locationService.getCoordinatesByAddress(address.country, address.zip, address.city, address.street).subscribe(
+      (res: {standort: FriendLocation}) => {
+        console.log('Response erhalten: ' + JSON.stringify(res, null, 2));
+        this.latitude = res.standort.breitengrad;
+        this.longitude = res.standort.laengengrad;
+        this.snackBar.open('Du befindest dich in der Stadt ' + address.city);
+      },
+    () => {
+        this.snackBar.open('Diese Addresse konnte nicht zugeordnet werden', '', {duration: 6000});
+    }
+    );
+  }
   submitLocation(): any {
     this.loading = true;
-    const positionFormControls = this.positionForm.controls;
-    this.locationService.submitLocation(positionFormControls.latitude.value, positionFormControls.longitude.value).subscribe(
+    this.locationService.submitLocation(this.latitude, this.longitude).subscribe(
       () => {
         this.dialogRef.close();
       },
@@ -52,13 +57,5 @@ export class SaveLocationComponent implements OnInit {
         this.loading = false;
       }
     );
-  }
-  changeFormState(): void {
-    if (this.positionForm.enabled) {
-      this.positionForm.disable();
-    }
-    else {
-      this.positionForm.enable();
-    }
   }
 }

@@ -1,0 +1,51 @@
+<div class="background-image-watch-list">
+    <div class="content" [class.content-mobile]="breakpoint" (window:resize)="onResize($event)">
+        <mat-card *ngIf="!errorOccurred && !loading" class="card">
+            <mat-card-title>Wähle deine Freunde aus</mat-card-title>
+            <mat-card-subtitle>und finde heraus, wo sie sich gerade befinden!</mat-card-subtitle>
+            <mat-card-content class="card-content">
+
+                <mat-form-field class="friend-input">
+                    <mat-label>Nutzer suchen (nach Nutzernamen)...</mat-label>
+                    <input #friendInput 
+                        type="text" 
+                        matInput 
+                        [formControl]="friendControl" 
+                        [matAutocomplete]="userAutocomplete">
+                    <mat-autocomplete #userAutocomplete="matAutocomplete" (optionSelected)="selectFriend($event)">
+                        <mat-option *ngFor="let friend of filteredFriendList | async" [value]="friend">
+                            <mat-icon>
+                                {{ friendISSelected(friend) ? 'check_box' : 'check_box_outline_blank' }}
+                            </mat-icon>
+                            {{friend | displayName}} ({{friend.loginName}})
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <div class="content-container">
+                    <div class="content-container__column">
+                        <mat-label> Liste ausgewählter Freunde </mat-label>
+                        <mat-list class="friend-list">
+                            <mat-list-item *ngFor="let friend of selectedFriends">
+                                <mat-icon mat-list-icon>person</mat-icon>
+                                {{friend | displayName}} ({{friend.loginName}})
+                                <button mat-icon-button class="friend-list__remove-button" (click)="remove(friend)">
+                                    <mat-icon> delete </mat-icon>
+                                </button>
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                    <app-google-maps class="content-container__column" [friendArray]="markersForSelectedFriends" [friendsArrayChanged]="friendArrayChangeCounter" *ngIf="!loading && !errorOccurred"></app-google-maps>
+                </div>
+
+                
+            </mat-card-content>
+        </mat-card>
+        <div class="content__loading" *ngIf="loading">
+            <mat-spinner></mat-spinner>
+            <p class="loading-description">Lade Freunde...</p>
+        </div>
+    </div>
+</div>
+
+<img src="../../assets/login-background.jpg" alt="Background" class="background">

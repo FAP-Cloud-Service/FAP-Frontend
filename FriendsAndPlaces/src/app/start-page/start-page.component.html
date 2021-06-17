@@ -12,18 +12,13 @@
         einfach hier
       </p>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-flat-button>Freunde finden</button>
-      <button mat-flat-button>Hilfe</button>
-      <button mat-button color="warn">Ausloggen</button>
-    </mat-card-actions>
   </mat-card>
 </div>
 
 <div *ngIf="!loggedIn">
-  <mat-grid-list cols="3">
+  <mat-grid-list [cols]="numberOfColumns" rowHeight="500px" (window:resize)="onResize($event)">
     <mat-grid-tile>
-      <mat-card class="mat-card-not-loggedin">
+      <mat-card class="mat-card-not-loggedin" [class.full-width]="breakPoint">
         <mat-card-title>
           Verbunden
         </mat-card-title>
@@ -36,7 +31,7 @@
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="mat-card-not-loggedin">
+      <mat-card class="mat-card-not-loggedin" [class.full-width]="breakPoint">
         <mat-card-title>
           Kostenlos
         </mat-card-title>
@@ -46,13 +41,10 @@
             <b>Friends & Places</b> stellen wir dir ganz ohne Werbung und ohne zusätzliche kosten zur Verfügung. Erstelle einfach einen Account
           </p>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>Optionen</button>
-        </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="mat-card-not-loggedin">
+      <mat-card class="mat-card-not-loggedin" [class.full-width]="breakPoint">
         <mat-card-title>
           Privat
         </mat-card-title>
@@ -64,11 +56,8 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-   <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile>
-      <button mat-flat-button (click)="openRegisterDialog()">Registrieren</button>
-    </mat-grid-tile>
   </mat-grid-list>
+  <button mat-flat-button (click)="openRegisterDialog()" [class.full-width]="breakPoint">Registrieren</button>
 </div>
-<img src="../../assets/login-background.jpg" alt="Background" class="background">
+  <img src="../../assets/login-background.jpg" alt="Background" class="background">
 </div>

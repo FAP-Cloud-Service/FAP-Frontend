@@ -1,27 +1,30 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-import { MaterialModule } from './modules/material/material.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StartPageComponent } from './start-page/start-page.component';
-import { SidenavContentComponent } from './sidenav-content/sidenav-content.component';
-import { LoginComponent } from './login/login.component';
+import {AppComponent} from './app.component';
+import {MaterialModule} from './modules/material/material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {StartPageComponent} from './start-page/start-page.component';
+import {SidenavContentComponent} from './sidenav-content/sidenav-content.component';
+import {LoginComponent} from './login/login.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {RegisterComponent} from './register/register.component';
-import { AbortDialogComponent } from './abort-dialog/abort-dialog.component';
-import { CookieService } from 'ngx-cookie-service';
-import { LogoutVerificationComponent } from './logout-verification/logout-verification.component';
-import { FreundeComponent } from './friendslist/freunde.component';
-import { ErrorComponent } from './error/error.component';
-import { SaveLocationComponent } from './save-location/save-location.component';
-import {MapComponent} from './map/map.component';
-import { FriendsDetailComponent } from './friends-detail/friends-detail.component';
-import { FriendsmapComponent } from './friendsmap/friendsmap.component';
-import { DisplayNamePipe } from './pipes/display-name.pipe';
-import { IntroductionComponent } from './introduction/introduction.component';
+import {AbortDialogComponent} from './abort-dialog/abort-dialog.component';
+import {CookieService} from 'ngx-cookie-service';
+import {LogoutVerificationComponent} from './logout-verification/logout-verification.component';
+import {FreundeComponent} from './friendslist/freunde.component';
+import {ErrorComponent} from './error/error.component';
+import {SaveLocationComponent} from './save-location/save-location.component';
+import {FriendsDetailComponent} from './friends-detail/friends-detail.component';
+import {FriendsmapComponent} from './friendsmap/friendsmap.component';
+import {DisplayNamePipe} from './pipes/display-name.pipe';
+import {SaveLocationManualComponent} from './save-location/save-location-manual/save-location-manual.component';
+import {SaveLocationGeolocationComponent} from './save-location/save-location-geolocation/save-location-geolocation.component';
+import {GoogleMapsComponent} from './google-maps/google-maps.component';
+import {AgmCoreModule} from '@agm/core';
+import { WatchListComponent } from './watch-list/watch-list.component';
 
 @NgModule({
   declarations: [
@@ -35,18 +38,23 @@ import { IntroductionComponent } from './introduction/introduction.component';
     FreundeComponent,
     ErrorComponent,
     SaveLocationComponent,
-    MapComponent,
     FriendsDetailComponent,
     FriendsmapComponent,
     DisplayNamePipe,
-    IntroductionComponent
+    SaveLocationManualComponent,
+    SaveLocationGeolocationComponent,
+    GoogleMapsComponent,
+    WatchListComponent,
   ],
   imports: [
     BrowserModule,
     MaterialModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: ''
+    })
   ],
   providers: [
     CookieService,
@@ -54,4 +62,5 @@ import { IntroductionComponent } from './introduction/introduction.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

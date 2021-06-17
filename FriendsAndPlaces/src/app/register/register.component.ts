@@ -17,6 +17,7 @@ import {UserService} from '../services/user.service';
 })
 export class RegisterComponent implements OnInit {
   // variables
+  usernameValid: boolean;
   loading = false;
   countryLoading = false;
   countries: any;
@@ -41,7 +42,7 @@ export class RegisterComponent implements OnInit {
   });
   accountForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.pattern(/^[\S]+$/)]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     passwordConfirm: new FormControl('', Validators.required),
     termsOfService: new FormControl('', Validators.requiredTrue)
   });
@@ -103,6 +104,12 @@ export class RegisterComponent implements OnInit {
       map(value => this._filter(value))
     );
     this.loadCountries();
+  }
+  getPasswordErrorMessage(): string {
+    if (this.accountForm.controls.password.hasError('required')) {
+      return 'Pflichtfeld';
+    }
+    return this.accountForm.controls.password.hasError('minlength') ? 'Passwort zu kurz!' : '';
   }
   loadCountries(): void {
     this.countryLoading = true;
@@ -176,6 +183,10 @@ export class RegisterComponent implements OnInit {
         if (!res.ergebnis) {
           this.snackBar.open('Dieser Benutzername ist nicht verfügbar');
           this.accountForm.controls.username.setErrors(Validators.required);
+          this.usernameValid = false;
+        }
+        else {
+          this.usernameValid = true;
         }
       }
     );

@@ -1,10 +1,14 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Output} from '@angular/core';
 import * as L from 'leaflet';
 import {LocationService} from '../services/location.service';
 import {FriendsService} from '../services/friends.service';
-import {detect} from 'detect-browser';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MapService} from '../services/map.service';
+import { SaveLocationComponent } from '../save-location/save-location.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SessionService } from '../services/session.service';
+import { SessionSettings } from '../interfaces/session';
+import {FriendMapLocation} from '../interfaces/location';
 
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -27,37 +31,27 @@ L.Marker.prototype.options.icon = iconDefault;
   templateUrl: './friendsmap.component.html',
   styleUrls: ['./friendsmap.component.scss']
 })
-export class FriendsmapComponent implements OnInit, AfterViewInit {
-
-  constructor(private locationService: LocationService, private friendsService: FriendsService, private snackBar: MatSnackBar, private mapService: MapService) {
-  }
+export class FriendsmapComponent implements AfterViewInit {
 
   @Output() selectedPage = new EventEmitter<string>();
 
   map: any;
-  friendList: any[];
+  friendList: FriendMapLocation[];
   querySuccessful: boolean;
   errorMessage: string;
   loading = true;
+  session: SessionSettings;
 
-  private initMap(friendsArray: any): void {
+  markers: Array<any> = [];
 
-    this.map = this.mapService.getMap('map', 51.1642292, 10.4541194, 10);
-
-    const markers: any[] = [];
-    for (const friend of friendsArray) {
-      const marker = L.marker([friend.latitude, friend.longitude]);
-      const popUpHtml = `<div>Name: ${friend.name}</div>` +
-        `<div>Longitude: ${friend.longitude}</div>` +
-        `<div>Latitude: ${friend.latitude}</div>`;
-      marker.bindPopup(popUpHtml);
-      marker.addTo(this.map);
-      markers.push(marker);
-    }
-    const group = L.featureGroup(markers);
-    this.map.fitBounds(group.getBounds());
+  constructor(
+    private locationService: LocationService,
+    private friendsService: FriendsService,
+    private snackBar: MatSnackBar,
+    private sessionService: SessionService,
+    private dialog: MatDialog) {
+      this.session = this.sessionService.getSession();
   }
-
   async getFriends(): Promise<any> {
     try {
       const friendsArray: { name: string; latitude: number; longitude: number; }[] = [];
@@ -78,20 +72,30 @@ export class FriendsmapComponent implements OnInit, AfterViewInit {
         this.querySuccessful = false;
         this.snackBar.open('Beim Laden deiner Freunde ist ein Fehler aufgetreten...', '', {duration: 5000});
       }
-      return friendsArray;
+      this.friendList = friendsArray;
     } catch (error) {
       this.snackBar.open('Beim Laden deiner Freunde ist ein Fehler aufgetreten...', '', {duration: 5000});
     }
   }
 
-  ngOnInit(): void {
+  openSaveLocationDialog(): void {
+    this.dialog.open(SaveLocationComponent).afterClosed().subscribe(() => {
+      this.locationService.getLocationByUser(this.session.username).subscribe(location => {
+        const marker = L.marker([location.breitengrad, location.laengengrad]);
+        const popUpHtml = `<div>Name: ${this.session.username}</div>` +
+          `<div>Longitude: ${location.breitengrad}</div>` +
+          `<div>Latitude: ${location.laengengrad}</div>`;
+        marker.bindPopup(popUpHtml);
+        marker.addTo(this.map);
+        this.markers.push(marker);
+      });
+    });
   }
 
   ngAfterViewInit(): void {
-    this.getFriends().then((friendsArray) => {
-      this.initMap(friendsArray);
+     this.getFriends().then(() => {
       this.loading = false;
-    });
+     });
   }
 
 }

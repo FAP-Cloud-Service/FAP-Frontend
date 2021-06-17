@@ -3,21 +3,23 @@
     <button mat-icon-button class="menu-button" (click)="sidenavOpen = !sidenavOpen">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Friends and Places</span>
-    <span class="toolbar-spacer"></span>
+    <span *ngIf="!breakpoint">Friends and Places</span>
+    <span *ngIf="!breakpoint" class="toolbar-spacer"></span>
     <span *ngIf="selectedPage != 'login' && loggedIn && currentSession && currentSession.username != ''" class="toolbar-username-span">Hallo {{currentSession.username}}</span>
-    <button *ngIf="selectedPage != 'login'" mat-raised-button color="foreground" (click)="logInOut()">{{ loggedIn ? 'Logout' : 'Login'}}</button>
+    <span *ngIf="breakpoint" class="toolbar-spacer"></span>
+    <button *ngIf="selectedPage != 'login'" mat-raised-button color="foreground" (click)="logInOut()">{{ loggedIn ? 'Abmelden' : 'Anmelden'}}</button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav">
     <mat-sidenav mode="over" [(opened)]="sidenavOpen">
       <app-sidenav-content [loggedIn]="loggedIn" [selectPage]="selectedPage" (selectedPage)="selectPage($event)"></app-sidenav-content>
     </mat-sidenav>
-    <mat-sidenav-content>
-      <app-login *ngIf="selectedPage == 'login'" (sessionChanged)="sessionChanged()"></app-login>
-      <app-start-page *ngIf="selectedPage == 'start'" (selectedPage)="selectPage($event)" [loggedIn]="loggedIn"></app-start-page>
-      <app-friendsmap  *ngIf="selectedPage == 'friendsmap'" (selectedPage)="selectPage($event)"></app-friendsmap>
-      <app-freunde *ngIf="selectedPage =='friendslist'" (selectedPage)="selectPage($event)"></app-freunde>
+    <mat-sidenav-content [ngSwitch]="selectedPage">
+      <app-login *ngSwitchCase="'login'" (sessionChanged)="sessionChanged()"></app-login>
+      <app-start-page *ngSwitchCase="'start'" (selectedPage)="selectPage($event)" [loggedIn]="loggedIn"></app-start-page>
+      <app-friendsmap  *ngSwitchCase="'friendsmap'" (selectedPage)="selectPage($event, true)"></app-friendsmap>
+      <app-freunde *ngSwitchCase="'friendslist'" (selectedPage)="selectPage($event)"></app-freunde>
+      <app-watch-list *ngSwitchCase="'watchList'"></app-watch-list>
     </mat-sidenav-content>
   </mat-sidenav-container>
 

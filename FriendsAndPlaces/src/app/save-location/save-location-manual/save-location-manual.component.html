@@ -1,0 +1,18 @@
+<form [formGroup]="addressForm" >
+  <mat-form-field>
+    <mat-label>Straße und Hausnummer</mat-label>
+    <input matInput placeholder="Anschrift" formControlName="street">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Postleitzahl</mat-label>
+    <input matInput placeholder="PLZ" formControlName="zip" (focusout)="checkZipCodeInput()" (focusin)="disableCityInput()" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Stadt</mat-label>
+    <input matInput placeholder="Ort" formControlName="city">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Land</mat-label>
+    <input matInput placeholder="Land" formControlName="country">
+  </mat-form-field>
+</form>

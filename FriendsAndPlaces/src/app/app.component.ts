@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SessionSettings } from './interfaces/session';
@@ -11,7 +11,7 @@ import {UserService} from './services/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Friends And Places';
 
   sidenavOpen = false;
@@ -19,6 +19,8 @@ export class AppComponent {
 
   loggedIn = false;
   currentSession: SessionSettings;
+
+  breakpoint = false;
 
   constructor(
     private sessionService: SessionService,
@@ -37,8 +39,16 @@ export class AppComponent {
     }
   }
 
-  selectPage(value: string): void {
+  ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 480);
+  }
+
+  selectPage(value: string, loginAgain: boolean = false): void {
     this.selectedPage = value;
+    if (this.selectedPage == 'login' && loginAgain) {
+      this.loggedIn = false;
+      this.sessionService.deleteSession();
+    }
     this.sidenavOpen = false;
   }
 
@@ -52,25 +62,29 @@ export class AppComponent {
     if (!this.loggedIn) {
       this.selectPage('login');
     } else {
-      const logoutDialogRef = this.dialog.open(LogoutVerificationComponent);
-      logoutDialogRef.afterClosed().subscribe((logout: boolean) => {
-        if (logout) {
-          // TODO: Add logout operation with loginService
-          this.userService.performLogout(this.currentSession.username, this.currentSession.session).subscribe(() => {
-            this.sessionService.deleteSession();
-            this.loggedIn = false;
-            this.snackBar.open('Sie wurden erfolgreich abgemeldet!', '', {
-              duration: 5000
-            });
-            this.currentSession = new SessionSettings();
-            this.selectPage('start');
-          }, err => {
-            console.error('Fehler beim Logout:', err);
-            this.snackBar.open('Fehler beim Logout', '', {duration: 5000});
-          });
-        }
-      });
+      this.logout();
     }
+  }
+
+  private logout() {
+    const logoutDialogRef = this.dialog.open(LogoutVerificationComponent);
+    logoutDialogRef.afterClosed().subscribe((logout: boolean) => {
+      if (logout) {
+        // TODO: Add logout operation with loginService
+        this.userService.performLogout(this.currentSession.username, this.currentSession.session).subscribe(() => {
+          this.sessionService.deleteSession();
+          this.loggedIn = false;
+          this.snackBar.open('Sie wurden erfolgreich abgemeldet!', '', {
+            duration: 5000
+          });
+          this.currentSession = new SessionSettings();
+          this.selectPage('start');
+        }, err => {
+          console.error('Fehler beim Logout:', err);
+          this.snackBar.open('Fehler beim Logout', '', {duration: 5000});
+        });
+      }
+    });
   }
 
 }
